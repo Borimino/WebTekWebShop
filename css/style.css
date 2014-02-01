@@ -1,2 +1,63 @@
-#content img{float: left; padding: 10px}
-#nav {list-style-type: none;}
+/********************************************************************
+*							GØGLERTEMA 								*
+*-------------------------------------------------------------------*
+*					 		Created by:								*
+* 				Alexander Alsing, Markus Andreassen,				*
+*		 	Salban Kurayuktuizzzuu and Daniel Graungaard			*
+*								v.0.2								*
+********************************************************************/
+/*Genral setup*/
+body{
+	background-color: #CCCCCC; 
+	font-family: 'Calligraffitti', cursive;
+}
+
+a{color: #94B0FF; text-decoration: none;}
+
+a:hover{color: #0546FA; text-decoration: underline;}
+
+#content img{
+	float: left; 
+	padding: 10px
+}
+
+
+/*Menu*/
+
+#nav{
+	list-style-type: none; 
+	text-align: center; 
+	font-size: 2em; 
+	font-family: Helvetica, Arial, Verdana; 
+	background-color: #3CABF0; 
+	margin: 20px 0px 20px 0px; 
+	height: 50px;
+	padding: 1.25% 0;
+	}
+
+#nav li{display: inline;}
+
+#nav li:hover{background-color: #90C;}
+
+
+#nav a{
+	display: inline-block; 
+	padding-left: 5px;
+	padding-right: 5px; 
+	margin: 0px
+}
+
+#nav ul{
+	height: 20px;
+	padding: 2.5% 0;
+}
+
+#wrapper{
+
+	background-color: #ffffff;
+	width: 1260px; 
+	padding: 20px; 
+	margin-left: auto; 
+	margin-right: auto
+}
+
