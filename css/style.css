@@ -17,7 +17,6 @@ body{
 	background-color: #ffffff;
 	width: 100%; 
 	padding: 20px; 
-
 	overflow: hidden;
 	
 }
@@ -115,3 +114,9 @@ font-weight: bolder;
 
 
 }
+
+tr img{width: 150px; display: ; margin:0 auto;}
+
+table{margin: 0 auto}
+
+td{padding-left: 10px; padding-right: 10px; text-align:center; vertical-align: middle;}
