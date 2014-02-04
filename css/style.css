@@ -9,7 +9,7 @@
 /*Genenral setup*/
 body{
 	background-color: #EBEBEB; 
-	font-family: 'Calligraffitti', cursive;
+	font-family: 'Frijole', cursive;
 }
 
 #wrapper{
@@ -136,5 +136,10 @@ td{
 	border-width: 1px;
 	border-color: #9C9C9C;
 
+
+}
+
+.sminkepic{
+	width: 50px;
 
 }
