@@ -17,7 +17,6 @@ body{
 	background-color: #ffffff;
 	width: 100%; 
 	padding: 20px; 
-
 	overflow: hidden;
 	
 }
@@ -110,8 +109,32 @@ a.first{
 
 .strangetext{
 
-color: red;
-font-weight: bolder;
+	color: red;
+	font-weight: bolder;
+
+
+}
+
+/* Product table Table*/
+
+tr img{width: 150px; display: ; margin:0 auto;}
+
+table{margin: 0 auto}
+
+td{
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align:center;
+	vertical-align: middle;
+	border-bottom: dotted #D6D6D6;
+}
+
+
+.producttable{
+	background: radial-gradient(#D9D9D9,#ffffff);
+	border-style: solid;
+	border-width: 1px;
+	border-color: #9C9C9C;
 
 
 }
