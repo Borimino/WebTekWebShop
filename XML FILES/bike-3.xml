@@ -1,0 +1,8 @@
+<item xmlns="http://www.cs.au.dk/dWebTek/2014">
+			<itemID>9</itemID>
+			<itemName>Starter bike</itemName>
+			<itemURL>#</itemURL> 
+			<itemPrice>500</itemPrice>
+			<itemStock>10</itemStock> 
+			<itemDescription>Perfect for your avarage rookie!</itemDescription>
+</item>
