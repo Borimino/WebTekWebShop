@@ -4,5 +4,5 @@
 			<itemURL>#</itemURL> 
 			<itemPrice>9000</itemPrice>
 			<itemStock>10</itemStock> 
-			<itemDescription>KOM SÅ BJARNE!</itemDescription>
+			<itemDescription><document>KOM SÅ BJARNE!</document></itemDescription>
 </item>

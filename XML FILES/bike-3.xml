@@ -4,5 +4,5 @@
 			<itemURL>#</itemURL> 
 			<itemPrice>500</itemPrice>
 			<itemStock>10</itemStock> 
-			<itemDescription>Perfect for your avarage rookie!</itemDescription>
+			<itemDescription><document>Perfect for your avarage rookie!</document></itemDescription>
 </item>

@@ -5,5 +5,5 @@
 	<itemURL>#</itemURL>
 	<itemPrice>199</itemPrice>
 	<itemStock>1</itemStock>
-	<itemDescription>Bedst i test!</itemDescription>
+	<itemDescription><document>Bedst i test!</document></itemDescription>
 </item>
