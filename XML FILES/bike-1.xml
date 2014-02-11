@@ -4,5 +4,5 @@
 			<itemURL>#</itemURL> 
 			<itemPrice>1800</itemPrice>
 			<itemStock>10</itemStock> 
-			<itemDescription><document>Dette er de ethjulede cyklers Lamboghini!</document></itemDescription>
+			<itemDescription><document>Dette er de <italics>ethjulede</italics> cyklers Lamboghini!</document></itemDescription>
 </item>

@@ -4,5 +4,17 @@
 			<itemURL>#</itemURL> 
 			<itemPrice>799</itemPrice>
 			<itemStock>10</itemStock> 
-			<itemDescription><document>Den er MØJ Hidsig!</document></itemDescription>
+			<itemDescription><document>Den er MØJ Hidsig! og 
+				<list> 
+					<item>god</item>
+					<item>til</item>
+					<item>at</item>
+					<item>flyve</item>
+					<item>med</item>
+					<item>om</item>
+					<item>mandagen!</item>
+			
+				</list>
+
+			</document></itemDescription>
 </item>

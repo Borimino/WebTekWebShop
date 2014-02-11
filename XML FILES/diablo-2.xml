@@ -5,5 +5,5 @@
 	<itemURL>#</itemURL>
 	<itemPrice>499</itemPrice>
 	<itemStock>1</itemStock>
-	<itemDescription><document>For brugere, der ønsker at mestre kunsten "The flying dragon"</document></itemDescription>
+	<itemDescription><document>For brugere, der ønsker at mestre kunsten <bold><italics>"The flying dragon"</italics></bold></document></itemDescription>
 </item>
