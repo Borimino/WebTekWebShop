@@ -109,7 +109,7 @@ public class XMLHandler {
 		return b;
 	}
 	
-	public Document toXML(String in, String ip, String is, String des, String url, String id){
+	public static Document toXML(String in, String ip, String is, String des, String url, String id){
 		
 		Document d = new Document();
 		Element root = new Element("item", n);

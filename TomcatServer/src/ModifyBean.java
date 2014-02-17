@@ -1,7 +1,6 @@
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import com.sun.xml.internal.txw2.Document;
 
 @ManagedBean
 @SessionScoped
@@ -14,7 +13,7 @@ public class ModifyBean {
 	private String itemID;
 	
 	public String createItem(){
-		
+		XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
 		return null;
 	}
 
