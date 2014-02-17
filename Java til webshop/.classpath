@@ -3,5 +3,9 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Administrator/Desktop/WebTechStuff/jdom.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/Salban/Uni/1 År/Q3/Github spas/Webshop/TomcatServer/WebContent/WEB-INF/lib/javax.faces-2.2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/Salban/Uni/1 År/Q3/Github spas/Webshop/TomcatServer/WebContent/WEB-INF/lib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/Salban/Uni/1 År/Q3/Github spas/Webshop/TomcatServer/WebContent/WEB-INF/lib/jdom.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Administrator/Documents/Salban/Uni/1 År/Q3/Github spas/Webshop/TomcatServer/WebContent/WEB-INF/lib/jstl-1.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
