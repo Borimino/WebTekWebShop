@@ -13,6 +13,7 @@ public class LoginBean implements Serializable
 {
 	private String username;
 	private String password;
+	private String id;
 
 	private String[] admins = {"20"};
 
@@ -28,6 +29,7 @@ public class LoginBean implements Serializable
 
 		Element ID = loginResponse.getRootElement().getChild("customerID", n);
 		String id = ID.getText();
+		this.id = id;
 
 		if(Arrays.asList(admins).contains(id))
 		{
@@ -41,4 +43,6 @@ public class LoginBean implements Serializable
 	public void setUsername(String username) { this.username = username; }
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
+	public String getId() { return id; }
+	public void setId(String id) { this.id = id; }
 }

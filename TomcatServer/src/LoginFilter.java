@@ -16,13 +16,14 @@ public class LoginFilter implements Filter
 		HttpServletResponse httpRes = (HttpServletResponse) response;
 		HttpSession session = httpReq.getSession();
 
-		String id = (String) session.getAttribute("customerID");
-		if(id != null)
+		LoginBean login = (session != null) ? (LoginBean) session.getAttribute("login") : null;
+
+		if(login != null && login.getId() != null && login.getId() != "")
 		{
 			chain.doFilter(request, response);
 			return;
 		}
-		httpRes.sendRedirect("login.jsp");
+		httpRes.sendRedirect("../login.jsf");
 	}
 
 	public void destroy()
