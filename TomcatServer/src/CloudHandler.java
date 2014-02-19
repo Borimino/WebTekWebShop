@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.jdom2.Document;
+import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.Namespace;
 import org.jdom2.input.SAXBuilder;
@@ -55,6 +56,21 @@ public class CloudHandler {
 
 	}
 
+	public Document getDoc() {
+
+		Document res = new Document();
+
+		Element e = new Element("HRELLOW");
+		res.setRootElement(e);
+		HttpURLConnection con = connect(false, "/listItems?shopID=488");
+
+		getResponse(false, con, res, XMLHandler.getOutputter(),
+				XMLHandler.getSAXBuilder());
+
+		return res;
+
+	}
+
 	// Sends a Document and returns the response
 	public Document getResponse(boolean post, HttpURLConnection con,
 			Document d, XMLOutputter out, SAXBuilder b) {
@@ -77,12 +93,12 @@ public class CloudHandler {
 
 	}
 
-	//For backward comatiblity
+	// For backward comatiblity
 	public Document getResponse(HttpURLConnection con, Document d,
 			XMLOutputter out, SAXBuilder b) {
 
 		return getResponse(true, con, d, out, b);
-	
+
 	}
 
 	public int getLastResponse() {

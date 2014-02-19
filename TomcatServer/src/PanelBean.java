@@ -1,6 +1,4 @@
-import java.net.HttpURLConnection;
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -38,7 +36,7 @@ public class PanelBean {
 
 		LinkedList<Item> res = new LinkedList<Item>();
 
-		Document doc = getDoc();
+		Document doc = cloudHandler.getDoc();
 
 		for (Element e : doc.getRootElement().getChildren()) {
 
@@ -58,7 +56,10 @@ public class PanelBean {
 		
 		Element descriptionElement = e.getChild("itemDescription", nameSpace);
 		
+		
+		
 		XMLOutputter out = XMLHandler.getOutputter();		
+		
 		String description = out.outputString(descriptionElement);
 		
 		String url = e.getChildText("itemURL", nameSpace);
@@ -80,22 +81,7 @@ public class PanelBean {
 
 	}
 
-	private Document getDoc() {
-
-		Document res = new Document();
-
-		Element e = new Element("HRELLOW");
-		res.setRootElement(e);
-		HttpURLConnection con = cloudHandler.connect(false,
-				"/listItems?shopID=488");
-
-		res = cloudHandler.getResponse(false, con, res,
-				XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
-
-		return res;
-
-	}
-
+	
 	public LinkedList<Item> getItems() {
 		return items;
 	}
