@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://java.sun.com/jsf/html"> 
+<head>
+<meta charset="UTF-8" />
+<title>Create item</title>
+</head>
+<body>
+	<h2>Modify item</h2>
+	<h:form>
+		<b>Item-name </b>
+		<h:inputText value="#{ModifyBean.itemName}"/>
+		<br/><b>Item-price </b>
+		<h:inputText value="#{ModifyBean.itemPrice}"/>
+		<br/><b>Item-stock </b>
+		<h:inputText value="#{ModifyBean.itemStock}"/>
+		<br/><b>Item-description </b>
+		<h:inputText value="#{ModifyBean.itemDes}"/>
+		<br/><b>Item-URL </b>
+		<h:inputText value="#{ModifyBean.itemURL}"/>
+		<br/><b>Item-ID </b>
+		<h:inputText readonly="true" value="#{ModifyBean.itemID}"/>
+		<br/>
+		<h:commandButton action="#{ModifyBean.modifyItem}" value="Submit changes"/>
+	</h:form>
+</body>
+</html>

@@ -1,5 +1,11 @@
+import java.net.HttpURLConnection;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
 
 
 @ManagedBean
@@ -13,11 +19,45 @@ public class ModifyBean {
 	private String itemID;
 	
 	public String createItem(){
-		XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
-		return null;
+		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
+		
+		Document d1 = XMLHandler.createItem(d.getRootElement());
+		
+		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
+		HttpURLConnection con = c.connect("/createItem");
+		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+		
+		if(id == null){
+			return "Failure";
+		}
+		
+		itemID = id.getRootElement().getText();
+		
+		modifyItem();
+		return "Succes";
+	}
+	
+	public String modifyItem(){
+		
+		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
+		
+		Element e = new Element("itemID");
+		e.addContent(itemID);
+		
+		Document d1 = XMLHandler.modifyItem(e, d.getRootElement());
+		
+		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
+		HttpURLConnection con = c.connect("/modifyItem");
+		
+		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+		
+		
+		
+		return "Succes";
 	}
 
-	public String getItemPrice() {
+
+ 	public String getItemPrice() {
 		return itemPrice;
 	}
 
