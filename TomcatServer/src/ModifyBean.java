@@ -1,7 +1,9 @@
 import java.net.HttpURLConnection;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.jdom2.*;
 
@@ -114,6 +116,17 @@ public class ModifyBean {
 		return true;
 	}
 
+	public String loadModifyData(){
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String id = params.get("id");
+		
+		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
+		HttpURLConnection con = c.connect("/listItems?shopID=488");
+		
+		
+		
+		return "";
+	}
 
  	public String getItemPrice() {
 		return itemPrice;
