@@ -19,6 +19,11 @@ public class ModifyBean {
 	private String itemID;
 	
 	public String createItem(){
+		
+		if(!isInt(itemPrice) && !isInt(itemStock)){
+			return "Failure - NOT AN INT BITCH! - both itemPrice and itemStock has to be an int!";
+		}
+		
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
 		
 		Document d1 = XMLHandler.createItem(d.getRootElement());
@@ -39,6 +44,10 @@ public class ModifyBean {
 	
 	public String modifyItem(){
 		
+		if(!isInt(itemPrice) && !isInt(itemStock)){
+			return "Failure - NOT AN INT BITCH! - both itemPrice and itemStock has to be an int!";
+		}
+		
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
 		
 		Element e = new Element("itemID");
@@ -57,6 +66,11 @@ public class ModifyBean {
 	}
 	
 	public String adjustItemStock(){
+		
+		if(!isInt(itemStock)){
+			return "Not an int BITCH";
+		}
+		
 		Document d = XMLHandler.StockXML(itemStock);
 		
 		Element e = new Element("itemID");
@@ -70,6 +84,15 @@ public class ModifyBean {
 		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 		
 		return "Succes";
+	}
+	
+	private boolean isInt(String s){
+		try {
+			Integer.parseInt(s);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 
 
