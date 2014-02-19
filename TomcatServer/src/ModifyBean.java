@@ -3,9 +3,9 @@ import java.net.HttpURLConnection;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
+import org.jdom2.*;
+
+import java.io.*;
 
 
 @ManagedBean
@@ -17,8 +17,12 @@ public class ModifyBean {
 	private String itemDes;
 	private String itemURL;
 	private String itemID;
+
+	private Namespace n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 	
 	public String createItem(){
+
+		itemID = "";
 		
 		if(!isInt(itemPrice) && !isInt(itemStock)){
 			return "Failure - NOT AN INT BITCH! - both itemPrice and itemStock has to be an int!";
@@ -26,7 +30,7 @@ public class ModifyBean {
 		
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
 		
-		Document d1 = XMLHandler.createItem(d.getRootElement());
+		Document d1 = XMLHandler.createItem(d.getRootElement().getChild("itemName", n));
 		
 		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
 		HttpURLConnection con = c.connect("/createItem");
@@ -44,17 +48,32 @@ public class ModifyBean {
 	
 	public String modifyItem(){
 		
+		//Checks if itemPrice and itemStock are integers
 		if(!isInt(itemPrice) && !isInt(itemStock)){
-			return "Failure - NOT AN INT BITCH! - both itemPrice and itemStock has to be an int!";
+			return "Failure";
 		}
+
+		//Converts itemDes from String to InputStream
+		InputStream is;
+		Element eItemDes = new Element("document", n);
+		try {
+			is = new ByteArrayInputStream(itemDes.getBytes("UTF-8"));
+			eItemDes = XMLHandler.getSAXBuilder().build(is).getRootElement();
+		} catch(UnsupportedEncodingException uee) { }
+		catch(JDOMException  jdome) { }
+		catch(IOException ioe) { }
 		
-		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
-		
-		Element e = new Element("itemID");
+		//Constructs the item document
+		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, "", itemURL, itemID);
+		d.getRootElement().getChild("itemDescription", n).addContent(eItemDes);
+
+		Element e = new Element("itemID", n);
 		e.addContent(itemID);
 		
+		//Constructs the modifyItem document
 		Document d1 = XMLHandler.modifyItem(e, d.getRootElement());
 		
+		//Sends the modifyItem to the server
 		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
 		HttpURLConnection con = c.connect("/modifyItem");
 		

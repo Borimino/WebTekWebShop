@@ -114,12 +114,12 @@ public class XMLHandler {
 		Document d = new Document();
 		Element root = new Element("item", n);
 		
-		Element itemName = new Element("itemName");
-		Element itemPrice = new Element("itemPrice");
-		Element itemStock = new Element("itemStock");
-		Element itemDes = new Element("itemDescription");
-		Element itemURL = new Element("itemURL");
-		Element itemID = new Element("itemID");
+		Element itemName = new Element("itemName", n);
+		Element itemPrice = new Element("itemPrice", n);
+		Element itemStock = new Element("itemStock", n);
+		Element itemDes = new Element("itemDescription", n);
+		Element itemURL = new Element("itemURL", n);
+		Element itemID = new Element("itemID", n);
 		
 		itemName.addContent(in);
 		itemPrice.addContent(ip);
