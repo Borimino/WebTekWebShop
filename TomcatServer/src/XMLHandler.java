@@ -117,7 +117,7 @@ public class XMLHandler {
 		Element itemName = new Element("itemName");
 		Element itemPrice = new Element("itemPrice");
 		Element itemStock = new Element("itemStock");
-		Element itemDes = new Element("itemDes");
+		Element itemDes = new Element("itemDescription");
 		Element itemURL = new Element("itemURL");
 		Element itemID = new Element("itemID");
 		
