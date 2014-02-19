@@ -56,7 +56,7 @@ public class CloudHandler {
 
 	}
 
-	public Document getDoc() {
+	public Document getItemDoc() {
 
 		Document res = new Document();
 

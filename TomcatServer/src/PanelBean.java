@@ -36,7 +36,7 @@ public class PanelBean {
 
 		LinkedList<Item> res = new LinkedList<Item>();
 
-		Document doc = cloudHandler.getDoc();
+		Document doc = cloudHandler.getItemDoc();
 
 		for (Element e : doc.getRootElement().getChildren()) {
 
@@ -55,7 +55,6 @@ public class PanelBean {
 		int id = Integer.parseInt(e.getChildText("itemID" , nameSpace));
 		
 		Element descriptionElement = e.getChild("itemDescription", nameSpace);
-		
 		
 		
 		XMLOutputter out = XMLHandler.getOutputter();		
