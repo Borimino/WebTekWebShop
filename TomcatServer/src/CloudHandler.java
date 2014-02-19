@@ -60,11 +60,9 @@ public class CloudHandler {
 
 		Document res = new Document();
 
-		Element e = new Element("HRELLOW");
-		res.setRootElement(e);
 		HttpURLConnection con = connect(false, "/listItems?shopID=488");
 
-		getResponse(false, con, res, XMLHandler.getOutputter(),
+		res = getResponse(false, con, res, XMLHandler.getOutputter(),
 				XMLHandler.getSAXBuilder());
 
 		return res;

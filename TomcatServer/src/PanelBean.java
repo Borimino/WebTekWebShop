@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -6,7 +7,6 @@ import javax.faces.bean.SessionScoped;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
-import org.jdom2.output.XMLOutputter;
 
 @ManagedBean
 @SessionScoped
@@ -15,7 +15,7 @@ public class PanelBean {
 	private LinkedList<Item> items;
 	private CloudHandler cloudHandler;
 	private Namespace nameSpace;
-	
+
 	public PanelBean() {
 
 		this(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
@@ -25,7 +25,7 @@ public class PanelBean {
 	public PanelBean(org.jdom2.Namespace n) {
 
 		this.cloudHandler = new CloudHandler(n);
-		
+
 		this.nameSpace = n;
 
 		items = createList();
@@ -37,6 +37,7 @@ public class PanelBean {
 		LinkedList<Item> res = new LinkedList<Item>();
 
 		Document doc = cloudHandler.getItemDoc();
+		System.out.println(doc);
 
 		for (Element e : doc.getRootElement().getChildren()) {
 
@@ -51,16 +52,13 @@ public class PanelBean {
 	private void addToList(Element e, LinkedList<Item> target) {
 
 		String name = e.getChildText("itemName", nameSpace);
-		
-		int id = Integer.parseInt(e.getChildText("itemID" , nameSpace));
-		
+
+		int id = Integer.parseInt(e.getChildText("itemID", nameSpace));
+
 		Element descriptionElement = e.getChild("itemDescription", nameSpace);
-		
-		
-		XMLOutputter out = XMLHandler.getOutputter();		
-		
-		String description = out.outputString(descriptionElement);
-		
+
+		Element description = convertToHTML(descriptionElement.getChild("document", nameSpace));
+
 		String url = e.getChildText("itemURL", nameSpace);
 
 		String tempstock = e.getChildText("itemStock", nameSpace);
@@ -80,7 +78,44 @@ public class PanelBean {
 
 	}
 
-	
+	private Element convertToHTML(Element element) {
+
+		Namespace xhtml = Namespace.getNamespace("http://www.w3.org/1999/xhtml");
+		
+		for(Element e : element.getChildren())
+		{
+			convertToHTML(e);
+		}
+		if(element.getName().equals("document"))
+		{
+			element.setName("div");
+			element.setNamespace(xhtml);
+		}
+		if(element.getName().equals("bold"))
+		{
+			element.setName("strong");
+			element.setNamespace(xhtml);
+		}
+		if(element.getName().equals("italics"))
+		{
+			element.setName("i");
+			element.setNamespace(xhtml);
+		}
+		if(element.getName().equals("list"))
+		{
+			element.setName("ul");
+			element.setNamespace(xhtml);
+		}
+		if(element.getName().equals("item"))
+		{
+			element.setName("li");
+			element.setNamespace(xhtml);
+		}
+		
+		return element;
+
+	}
+
 	public LinkedList<Item> getItems() {
 		return items;
 	}
