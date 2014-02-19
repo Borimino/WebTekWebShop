@@ -16,9 +16,9 @@ public class CloudHandler {
 	private int lastResponse;
 	private String lastResponseMessage;
 	private Namespace n;
-	
+
 	public CloudHandler(Namespace n) {
-		
+
 		this.n = n;
 	}
 
@@ -29,7 +29,13 @@ public class CloudHandler {
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 			con.setDoOutput(true);
-			con.setRequestMethod("POST");
+
+			if (post == true) {
+				con.setRequestMethod("POST");
+			} else {
+				con.setRequestMethod("GET");
+			}
+		
 			con.connect();
 
 			return con;
@@ -40,6 +46,8 @@ public class CloudHandler {
 		}
 
 	}
+
+
 
 	// Sends a Document and returns the response
 	public Document getResponse(HttpURLConnection con, Document d,

@@ -96,6 +96,13 @@ public class XMLHandler {
 		
 		return createCustomer;
 	}
+	
+	public static Document convertCloudXML(){
+		
+		return null;
+		
+		
+	}
 
 	public static XMLOutputter getOutputter(){
 		return out; 

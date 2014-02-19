@@ -16,37 +16,52 @@ public class CloudHandler {
 	private int lastResponse;
 	private String lastResponseMessage;
 	private Namespace n;
-	
+
 	public CloudHandler(Namespace n) {
-		
+
 		this.n = n;
 	}
 
 	// Starts a connection
-	public HttpURLConnection connect(String addedURL) {
+	public HttpURLConnection connect(boolean post, String addedURL) {
 		try {
 			URL url = new URL(baseURL + addedURL);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 			con.setDoOutput(true);
-			con.setRequestMethod("POST");
+			con.setDoInput(true);
+			if (post == true) {
+				con.setRequestMethod("POST");
+			} else {
+				con.setRequestMethod("GET");
+			}
 			con.connect();
 
 			return con;
 		} catch (MalformedURLException murle) {
+			murle.printStackTrace();
 			return null;
 		} catch (IOException ioe) {
+			ioe.printStackTrace();
 			return null;
 		}
 
 	}
 
-	// Sends a Document and returns the response
-	public Document getResponse(HttpURLConnection con, Document d,
-			XMLOutputter out, SAXBuilder b) {
-		try {
-			out.output(d, con.getOutputStream());
+	// For backward combatiblity
+	public HttpURLConnection connect(String addedURL) {
 
+		return connect(true, addedURL);
+
+	}
+
+	// Sends a Document and returns the response
+	public Document getResponse(boolean post, HttpURLConnection con,
+			Document d, XMLOutputter out, SAXBuilder b) {
+		try {
+			if (post == true) {
+				out.output(d, con.getOutputStream());
+			}
 			lastResponse = con.getResponseCode();
 			lastResponseMessage = con.getResponseMessage();
 			InputStream response = con.getInputStream();
@@ -54,11 +69,20 @@ public class CloudHandler {
 			Document itemID = b.build(response);
 			return itemID;
 		} catch (IOException ioe) {
+			System.out.println("FORBINDELSESOPRETTELSESFEJL!!!!!!!");
 			return null;
 		} catch (JDOMException jdome) {
 			return null;
 		}
 
+	}
+
+	//For backward comatiblity
+	public Document getResponse(HttpURLConnection con, Document d,
+			XMLOutputter out, SAXBuilder b) {
+
+		return getResponse(true, con, d, out, b);
+	
 	}
 
 	public int getLastResponse() {

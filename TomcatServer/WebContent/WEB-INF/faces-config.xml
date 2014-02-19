@@ -4,16 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
 	version="2.0">
 
-	<navigation-rule>
-		<from-view-id>/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>FAILED</from-outcome>
-			<to-view-id>/login.xhtml</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>LOGGED IN</from-outcome>
-			<to-view-id>/admin.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
+
 
 </faces-config>
