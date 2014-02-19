@@ -13,7 +13,11 @@
 		<br/><b>Item-stock </b>
 		<h:inputText value="#{modifyBean.itemStock}"/>
 		
-		<h:commandButton action="#{modifyBean.modifyItem}" value="Submit changes"/>
+		<br/><b>Item-ID </b>
+		<h:inputText readonly="true" value="#{modifyBean.itemID}"/>
+		<br/>
+		
+		<h:commandButton action="#{modifyBean.adjustItemStock}" value="Submit changes"/>
 	</h:form>
 </body>
 
