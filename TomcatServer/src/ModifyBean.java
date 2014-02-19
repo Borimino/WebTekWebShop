@@ -17,12 +17,17 @@ public class ModifyBean {
 	private String itemDes;
 	private String itemURL;
 	private String itemID;
+
+	private Namespace n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 	
 	public String createItem(){
+		
+		itemID = "";
+
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
-		
-		Document d1 = XMLHandler.createItem(d.getRootElement());
-		
+
+		Document d1 = XMLHandler.createItem(d.getRootElement().getChild("itemName", n));
+
 		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
 		HttpURLConnection con = c.connect("/createItem");
 		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
@@ -32,7 +37,7 @@ public class ModifyBean {
 		}
 		
 		itemID = id.getRootElement().getText();
-		
+
 		modifyItem();
 		return "Succes";
 	}
