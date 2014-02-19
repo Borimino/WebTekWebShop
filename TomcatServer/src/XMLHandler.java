@@ -1,7 +1,12 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 //import javax.faces.bean.*;
+
+
+
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -109,6 +114,52 @@ public class XMLHandler {
 	}
 	public static SAXBuilder getSAXBuilder(){
 		return b;
+	}
+	
+	public static Document toXML(String in, String ip, String is, String des, String url, String id){
+		
+		Document d = new Document();
+		Element root = new Element("item", n);
+		
+		Element itemName = new Element("itemName", n);
+		Element itemPrice = new Element("itemPrice", n);
+		Element itemStock = new Element("itemStock", n);
+		Element itemDes = new Element("itemDescription", n);
+		Element itemURL = new Element("itemURL", n);
+		Element itemID = new Element("itemID", n);
+		
+		itemName.addContent(in);
+		itemPrice.addContent(ip);
+		itemStock.addContent(is);
+		itemDes.addContent(des);
+		itemURL.addContent(url);
+		itemID.addContent(id);
+		
+		root.addContent(itemName);
+		root.addContent(itemPrice);
+		root.addContent(itemStock);
+		root.addContent(itemDes);
+		root.addContent(itemURL);
+		root.addContent(itemID);
+		
+		d.setRootElement(root);
+		return d;
+	}
+	
+	public static Document StockXML(String s){
+		
+		Document d = new Document();
+		Element root = new Element("item", n);
+		
+		Element stock = new Element("itemStock");
+		
+		stock.addContent(s);
+		
+		root.addContent(stock);
+		
+		d.setRootElement(root);
+		return d;
+		
 	}
 
 }
