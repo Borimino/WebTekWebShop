@@ -1,13 +1,19 @@
 <!Doctype html>
-<HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:h="http://java.sun.com/jsf/html">
 <HEAD>
 <META charset="UTF-8"/>
 <TITLE>Adjust the Item Stock</TITLE>
 
 </HEAD>
 <BODY>
-
-
+	<H2>Adjust the Item Stock!!!</H2>
+	<h:form>
+		<br/><b>Item-stock </b>
+		<h:inputText value="#{modifyBean.itemStock}"/>
+		
+		<h:commandButton action="#{modifyBean.modifyItem}" value="Submit changes"/>
+	</h:form>
 </BODY>
 
 

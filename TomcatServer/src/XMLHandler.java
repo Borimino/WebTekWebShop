@@ -138,5 +138,10 @@ public class XMLHandler {
 		d.setRootElement(root);
 		return d;
 	}
+	
+	public static Document StockXML(String s){
+		
+		Document d = new Document();
+	}
 
 }
