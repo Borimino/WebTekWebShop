@@ -17,17 +17,17 @@ public class ModifyBean {
 	private String itemDes;
 	private String itemURL;
 	private String itemID;
-
-	private Namespace n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 	
 	public String createItem(){
 		
-		itemID = "";
-
+		if(!isInt(itemPrice) && !isInt(itemStock)){
+			return "Failure - NOT AN INT BITCH! - both itemPrice and itemStock has to be an int!";
+		}
+		
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
-
-		Document d1 = XMLHandler.createItem(d.getRootElement().getChild("itemName", n));
-
+		
+		Document d1 = XMLHandler.createItem(d.getRootElement());
+		
 		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
 		HttpURLConnection con = c.connect("/createItem");
 		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
@@ -37,12 +37,16 @@ public class ModifyBean {
 		}
 		
 		itemID = id.getRootElement().getText();
-
+		
 		modifyItem();
 		return "Succes";
 	}
 	
 	public String modifyItem(){
+		
+		if(!isInt(itemPrice) && !isInt(itemStock)){
+			return "Failure - NOT AN INT BITCH! - both itemPrice and itemStock has to be an int!";
+		}
 		
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
 		
@@ -62,6 +66,11 @@ public class ModifyBean {
 	}
 	
 	public String adjustItemStock(){
+		
+		if(!isInt(itemStock)){
+			return "Not an int BITCH";
+		}
+		
 		Document d = XMLHandler.StockXML(itemStock);
 		
 		Element e = new Element("itemID");
@@ -75,6 +84,15 @@ public class ModifyBean {
 		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 		
 		return "Succes";
+	}
+	
+	private boolean isInt(String s){
+		try {
+			Integer.parseInt(s);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 
 
