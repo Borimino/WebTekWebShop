@@ -120,10 +120,37 @@ public class ModifyBean {
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = params.get("id");
 		
-		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
-		HttpURLConnection con = c.connect("/listItems?shopID=488");
-		
-		
+		CloudHandler ch = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
+
+		Document d = ch.getItemDoc();
+
+		Element res = new Element("item");
+
+		for(Content c : d.getRootElement().getDescendants())
+		{
+			if(!(c instanceof Element))
+			{
+				continue;
+			}
+			Element e = (Element) c;
+
+			if(e.getName().equals("itemID") && e.getText().equals(id))
+			{
+				res = (Element) e.getParent();	
+			}
+		}
+
+		if(res.getChildren().size() == 0)
+		{
+			return "";
+		}
+
+		itemName = res.getChild("itemName", n).getText();
+		itemPrice = res.getChild("itemPrice", n).getText();
+		itemStock = res.getChild("itemStock", n).getText();
+		itemDes = res.getChild("itemDes", n).getText();
+		itemURL = res.getChild("itemURL", n).getText();
+		itemID = res.getChild("itemID", n).getText();
 		
 		return "";
 	}
