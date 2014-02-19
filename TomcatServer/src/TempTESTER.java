@@ -8,8 +8,8 @@ public class TempTESTER {
 		Namespace n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 		PanelBean b = new PanelBean(n);
 		
-		System.out.println(b.getItems().toString());
 		
+		System.out.println(b.convertToHTML("<bold>NOGET BOLD</bold>");
 	}
 	
 

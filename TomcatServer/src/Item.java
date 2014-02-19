@@ -1,13 +1,15 @@
+import org.jdom2.Element;
+
 public class Item {
 
 	private String name;
 	private int id;
-	private String description;
+	private Element description;
 	private String url;
 	private int stock;
 	private int price;
 
-	public Item(String name, int id, String description, String url, int stock,
+	public Item(String name, int id, Element description, String url, int stock,
 			int price) {
 
 		this.name = name;
@@ -26,11 +28,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public String getDescription() {
+	public Element getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(Element description) {
 		this.description = description;
 	}
 
