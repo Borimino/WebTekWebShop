@@ -55,6 +55,22 @@ public class ModifyBean {
 		
 		return "Succes";
 	}
+	
+	public String adjustItemStock(){
+		Document d = XMLHandler.StockXML(itemStock);
+		
+		Element e = new Element("itemID");
+		e.addContent(itemID);
+		
+		Document d1 = XMLHandler.modifyItem(e, d.getRootElement());
+		
+		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
+		HttpURLConnection con = c.connect("/adjustItemStock");
+		
+		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+		
+		return "Succes";
+	}
 
 
  	public String getItemPrice() {

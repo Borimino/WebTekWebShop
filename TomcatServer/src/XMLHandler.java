@@ -142,6 +142,17 @@ public class XMLHandler {
 	public static Document StockXML(String s){
 		
 		Document d = new Document();
+		Element root = new Element("item", n);
+		
+		Element stock = new Element("itemStock");
+		
+		stock.addContent(s);
+		
+		root.addContent(stock);
+		
+		d.setRootElement(root);
+		return d;
+		
 	}
 
 }
