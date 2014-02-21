@@ -4,13 +4,14 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.*;
 
 import org.jdom2.*;
 
 import java.io.*;
 
 
-@ManagedBean
+@ManagedBean(name="modify")
 @SessionScoped
 public class ModifyBean {
 	private String itemName;
@@ -116,9 +117,12 @@ public class ModifyBean {
 		return true;
 	}
 
-	public String loadModifyData(){
+	public String loadModifyData(ActionEvent ae){
+		System.out.println("HelloWorld");
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = params.get("id");
+		//String id = "0";
+		System.out.println(id);
 		
 		CloudHandler ch = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
 
@@ -142,7 +146,7 @@ public class ModifyBean {
 
 		if(res.getChildren().size() == 0)
 		{
-			return "";
+			return "FAILURE";
 		}
 
 		itemName = res.getChild("itemName", n).getText();
@@ -152,7 +156,7 @@ public class ModifyBean {
 		itemURL = res.getChild("itemURL", n).getText();
 		itemID = res.getChild("itemID", n).getText();
 		
-		return "";
+		return "SUCCESS";
 	}
 
  	public String getItemPrice() {

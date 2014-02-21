@@ -9,7 +9,6 @@ public class TempTESTER {
 		PanelBean b = new PanelBean(n);
 		
 		
-		System.out.println(b.convertToHTML("<bold>NOGET BOLD</bold>");
 	}
 	
 
