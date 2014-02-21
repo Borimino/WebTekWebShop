@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<a href="create.jsf"> Create new item </a>
 
 	<h:dataTable var="o" value="#{panelBean.items}">
 
@@ -69,6 +70,7 @@
 				<f:param name="itemPrice" value="#{o.price}" /> 
 				<f:param name="itemDes" value="#{o.XMLdescription}" /> 
 				<f:param name="itemURL" value="#{o.url}" /> 
+				<f:param name="itemStock" value="#{o.stock}" />
 			</h:link> </h:form>
 		</h:column>
 
@@ -81,6 +83,11 @@
 			<h:form> <h:link value="Adjust stock" outcome="ADJUST">
 				<f:param name="itemID" value="#{o.id}" />
 				<f:param name="itemStock" value="#{o.stock}" />
+				<f:param name="oldItemStock" value="#{o.stock}" />
+				<f:param name="itemName" value="#{o.name}" /> 
+				<f:param name="itemPrice" value="#{o.price}" /> 
+				<f:param name="itemDes" value="#{o.XMLdescription}" /> 
+				<f:param name="itemURL" value="#{o.url}" /> 
 			</h:link></h:form>
 		</h:column>
 
