@@ -37,7 +37,6 @@ public class PanelBean {
 		LinkedList<Item> res = new LinkedList<Item>();
 
 		Document doc = cloudHandler.getItemDoc();
-		System.out.println(doc);
 
 		for (Element e : doc.getRootElement().getChildren()) {
 
