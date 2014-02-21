@@ -6,7 +6,7 @@ public class Item {
 
 	private String name;
 	private int id;
-	private String description;
+	private String HTMLdescription;
 	private String XMLdescription;
 	private String url;
 	private int stock;
@@ -16,7 +16,7 @@ public class Item {
 			int price) {
 
 		this.name = name;
-		this.description = HTMLdescription;
+		this.setHTMLdescription(HTMLdescription);
 		this.XMLdescription = XMLdescription;
 		this.url = url;
 		this.stock = stock;
@@ -30,14 +30,6 @@ public class Item {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getUrl() {
@@ -78,6 +70,14 @@ public class Item {
 
 	public void setXMLdescription(String xMLdescription) {
 		XMLdescription = xMLdescription;
+	}
+
+	public String getHTMLdescription() {
+		return HTMLdescription;
+	}
+
+	public void setHTMLdescription(String hTMLdescription) {
+		HTMLdescription = hTMLdescription;
 	}
 
 	
