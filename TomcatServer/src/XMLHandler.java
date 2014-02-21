@@ -63,6 +63,26 @@ public class XMLHandler {
 		return modifyItem;
 	}
 
+	public static Document adjustStock(Element itemID, Element item, String oldItemStock)
+	{
+		int iOldStock = Integer.parseInt(oldItemStock);
+		int iStock = Integer.parseInt(item.getChildText("itemStock", n));
+		int stock = iStock-iOldStock;
+
+		Document adjustStock = new Document();
+		Element root = new Element("adjustItemStock", n);
+		Element shopKey = new Element("shopKey", n);
+		shopKey.addContent("1E3D5BA1FD481ECFC983D4B3");
+		Element adjust = new Element("adjustment", n);
+		adjust.addContent(stock + "");
+		root.addContent(shopKey);
+		root.addContent(itemID);
+		root.addContent(adjust);
+		adjustStock.setRootElement(root);
+
+		return adjustStock;
+	}
+
 	public static Document login(String username, String password)
 	{
 		Document login = new Document();

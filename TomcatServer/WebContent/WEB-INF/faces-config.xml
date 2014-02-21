@@ -30,4 +30,20 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/admin/modify.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>SUCCESS</from-outcome>
+			<to-view-id>/admin/admin.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/admin/adjustItemStock.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>SUCCESS</from-outcome>
+			<to-view-id>/admin/admin.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

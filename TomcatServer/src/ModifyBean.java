@@ -17,6 +17,7 @@ public class ModifyBean {
 	private String itemName;
 	private String itemPrice;
 	private String itemStock;
+	private String oldItemStock;
 	private String itemDes;
 	private String itemURL;
 	private String itemID;
@@ -61,21 +62,21 @@ public class ModifyBean {
 		Element eItemDes = new Element("document", n);
 		try {
 			is = new ByteArrayInputStream(itemDes.getBytes("UTF-8"));
-			eItemDes = XMLHandler.getSAXBuilder().build(is).getRootElement();
+			eItemDes = XMLHandler.getSAXBuilder().build(is).getRootElement().clone();
 		} catch(UnsupportedEncodingException uee) { }
 		catch(JDOMException  jdome) { }
 		catch(IOException ioe) { }
 		
 		//Constructs the item document
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, "", itemURL, itemID);
-		d.getRootElement().getChild("itemDescription", n).addContent(eItemDes);
+		d.getRootElement().getChild("itemDescription", n).addContent(eItemDes.getChild("document", n).clone());
 
 		Element e = new Element("itemID", n);
 		e.addContent(itemID);
 		
 		//Constructs the modifyItem document
 		Document d1 = XMLHandler.modifyItem(e, d.getRootElement());
-		
+
 		//Sends the modifyItem to the server
 		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
 		HttpURLConnection con = c.connect("/modifyItem");
@@ -84,7 +85,7 @@ public class ModifyBean {
 		
 		
 		
-		return "Succes";
+		return "SUCCESS";
 	}
 	
 	public String adjustItemStock(){
@@ -93,19 +94,23 @@ public class ModifyBean {
 			return "Not an int BITCH";
 		}
 		
-		Document d = XMLHandler.StockXML(itemStock);
+		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, "", itemURL, itemID);
 		
-		Element e = new Element("itemID");
+		Element e = new Element("itemID", n);
 		e.addContent(itemID);
 		
-		Document d1 = XMLHandler.modifyItem(e, d.getRootElement());
+		Document d1 = XMLHandler.adjustStock(e, d.getRootElement(), oldItemStock);
+
+		try{
+		XMLHandler.getOutputter().output(d1, System.out);
+		} catch(Exception ie) {}
 		
 		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
 		HttpURLConnection con = c.connect("/adjustItemStock");
 		
 		Document id = c.getResponse(con, d1, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 		
-		return "Succes";
+		return "SUCCESS";
 	}
 	
 	private boolean isInt(String s){
@@ -173,6 +178,14 @@ public class ModifyBean {
 
 	public void setItemStock(String itemStock) {
 		this.itemStock = itemStock;
+	}
+
+	public String getOldItemStock() {
+		return oldItemStock;
+	}
+
+	public void setOldItemStock(String oldItemStock) {
+		this.oldItemStock = oldItemStock;
 	}
 
 	public String getItemDes() {
