@@ -29,7 +29,7 @@ public class ModifyBean {
 		itemID = "";
 		
 		if(!isInt(itemPrice) && !isInt(itemStock)){
-			return "Failure - NOT AN INT BITCH! - both itemPrice and itemStock has to be an int!";
+			return "Failure";
 		}
 		
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, itemDes, itemURL, itemID);
@@ -91,7 +91,7 @@ public class ModifyBean {
 	public String adjustItemStock(){
 		
 		if(!isInt(itemStock)){
-			return "Not an int BITCH";
+			return "Failure";
 		}
 		
 		Document d = XMLHandler.toXML(itemName, itemPrice, itemStock, "", itemURL, itemID);
@@ -123,7 +123,6 @@ public class ModifyBean {
 	}
 
 	public String loadModifyData(ActionEvent ae){
-		System.out.println("HelloWorld");
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = params.get("id");
 		//String id = "0";
@@ -218,7 +217,6 @@ public class ModifyBean {
 
 	public void setItemID(String itemID) {
 		this.itemID = itemID;
-		System.out.println(itemID);
 	}
 	
 	
