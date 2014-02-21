@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"> 
 <head>
 <meta charset="UTF-8" />
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/backend.css" />
 <title> Modify an item</title>
 </head>
 <body>
@@ -21,18 +21,16 @@
 
 	<h:form>
 		
-		<b>Item-name </b>
-		<h:inputText value="#{modify.itemName}"/>
-		<br/><b>Item-price </b>
-		<h:inputText value="#{modify.itemPrice}"/>
-
-		<br/><b>Item-description </b>
+		<label for="name"> Item-name </label>
+		<h:inputText id="name"value="#{modify.itemName}"/>
+		<label for="price">Item-price</label>
+		<h:inputText id="price" value="#{modify.itemPrice}"/>
+		<label></label>
 		<h:inputTextarea value="#{modify.itemDes}" cols="25" rows="10"/>
-		<br/><b>Item-URL </b>
+		<b>Item-URL </b>
 		<h:inputText value="#{modify.itemURL}"/>
-		<br/><b>Item-ID </b>
+		<b>Item-ID </b>
 		<h:inputText readonly="true" value="#{modify.itemID}"/>
-		<br/>
 		<h:commandButton action="#{modify.modifyItem}" value="Submit changes"/>
 	</h:form>
 </body>

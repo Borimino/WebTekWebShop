@@ -4,7 +4,7 @@
 		xmlns:h="http://java.sun.com/jsf/html">
 <head>
 <meta charset="UTF-8"/>
-<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="../css/backend.css" />
 <title>Adjust the Item Stock</title>
 
 </head>
@@ -17,12 +17,12 @@
 	</f:metadata>
 
 	<h:form>
-		<br/><b>Item-stock </b>
+		<b>Item-stock </b>
 		<h:inputText value="#{modify.itemStock}"/>
 		
-		<br/><b>Item-ID </b>
+		<b>Item-ID </b>
 		<h:inputText readonly="true" value="#{modify.itemID}"/>
-		<br/>
+		
 		
 		<h:commandButton action="#{modify.adjustItemStock}" value="Submit changes"/>
 	</h:form>

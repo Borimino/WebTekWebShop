@@ -1,0 +1,21 @@
+a {color:#000}
+
+a:hover{color: #33CCFF;}
+
+table{
+	border: solid;
+	
+}
+
+td{
+	border-bottom-style: dotted;
+	border-bottom-width: 1px; 
+	padding: 5px;
+	word-wrap: break-word;
+	
+}
+
+
+
+
+
