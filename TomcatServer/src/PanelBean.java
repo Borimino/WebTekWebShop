@@ -37,7 +37,6 @@ public class PanelBean {
 		LinkedList<Item> res = new LinkedList<Item>();
 
 		Document doc = cloudHandler.getItemDoc();
-		System.out.println(doc);
 
 		for (Element e : doc.getRootElement().getChildren()) {
 
@@ -56,10 +55,12 @@ public class PanelBean {
 		int id = Integer.parseInt(e.getChildText("itemID", nameSpace));
 
 		Element descriptionElement = e.getChild("itemDescription", nameSpace);
-
+		
+		String XMLdescription = XMLHandler.getOutputter().outputString(descriptionElement);
+		
 		Element eDescription = convertToHTML(descriptionElement.getChild("document", nameSpace));
 
-		String description = XMLHandler.getOutputter().outputString(eDescription);
+		String HTMLdescription = XMLHandler.getOutputter().outputString(eDescription);
 
 		String url = e.getChildText("itemURL", nameSpace);
 
@@ -74,7 +75,7 @@ public class PanelBean {
 
 		int price = Integer.parseInt(e.getChildText("itemPrice", nameSpace));
 
-		Item temp = new Item(name, id, description, url, stock, price);
+		Item temp = new Item(name, id, HTMLdescription, XMLdescription, url, stock, price);
 
 		target.add(temp);
 
