@@ -16,16 +16,18 @@
 	<f:viewParam name="itemStock" value="#{modify.oldItemStock}" />
 	</f:metadata>
 
+	<div id="formwrapper">
 	<h:form>
-		<b>Item-stock </b>
-		<h:inputText value="#{modify.itemStock}"/>
+		<label for="stock">Item-stock </label>
+		<h:inputText id="stock" value="#{modify.itemStock}"/>
 		
-		<b>Item-ID </b>
-		<h:inputText readonly="true" value="#{modify.itemID}"/>
+		<label for="id">Item-ID </label>
+		<h:inputText id="id" readonly="true" value="#{modify.itemID}"/>
 		
 		
 		<h:commandButton action="#{modify.adjustItemStock}" value="Submit changes"/>
 	</h:form>
+</div>
 </body>
 
 
