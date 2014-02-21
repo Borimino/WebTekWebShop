@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"> 
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title> Modify an item</title>
+</head>
+<body>
+	<h2>Modify item</h2>
+
+	<f:metadata>
+		<f:viewParam name="itemID" value="#{modify.itemID}" />
+		<f:viewParam name="itemName" value="#{modify.itemName}" />
+		<f:viewParam name="itemPrice" value="#{modify.itemPrice}" />
+		<f:viewParam name="itemDes" value="#{modify.itemDes}" />
+		<f:viewParam name="itemURL" value="#{modify.itemURL}" />
+	</f:metadata>
+
+	<h:form>
+		
+		<b>Item-name </b>
+		<h:inputText value="#{modify.itemName}"/>
+		<br/><b>Item-price </b>
+		<h:inputText value="#{modify.itemPrice}"/>
+
+		<br/><b>Item-description </b>
+		<h:inputTextarea value="#{modify.itemDes}" cols="25" rows="10"/>
+		<br/><b>Item-URL </b>
+		<h:inputText value="#{modify.itemURL}"/>
+		<br/><b>Item-ID </b>
+		<h:inputText readonly="true" value="#{modify.itemID}"/>
+		<br/>
+		<h:commandButton action="#{modify.modifyItem}" value="Submit changes"/>
+	</h:form>
+</body>
+</html>

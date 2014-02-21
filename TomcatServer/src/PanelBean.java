@@ -56,7 +56,9 @@ public class PanelBean {
 
 		Element descriptionElement = e.getChild("itemDescription", nameSpace);
 
-		Element description = convertToHTML(descriptionElement.getChild("document", nameSpace));
+		Element eDescription = convertToHTML(descriptionElement.getChild("document", nameSpace));
+
+		String description = XMLHandler.getOutputter().outputString(eDescription);
 
 		String url = e.getChildText("itemURL", nameSpace);
 

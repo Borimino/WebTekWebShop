@@ -4,13 +4,14 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.*;
 
 import org.jdom2.*;
 
 import java.io.*;
 
 
-@ManagedBean
+@ManagedBean(name="modify")
 @SessionScoped
 public class ModifyBean {
 	private String itemName;
@@ -116,16 +117,46 @@ public class ModifyBean {
 		return true;
 	}
 
-	public String loadModifyData(){
+	public String loadModifyData(ActionEvent ae){
+		System.out.println("HelloWorld");
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = params.get("id");
+		//String id = "0";
+		System.out.println(id);
 		
-		CloudHandler c = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
-		HttpURLConnection con = c.connect("/listItems?shopID=488");
+		CloudHandler ch = new CloudHandler(Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014"));
+
+		Document d = ch.getItemDoc();
+
+		Element res = new Element("item");
+
+		for(Content c : d.getRootElement().getDescendants())
+		{
+			if(!(c instanceof Element))
+			{
+				continue;
+			}
+			Element e = (Element) c;
+
+			if(e.getName().equals("itemID") && e.getText().equals(id))
+			{
+				res = (Element) e.getParent();	
+			}
+		}
+
+		if(res.getChildren().size() == 0)
+		{
+			return "FAILURE";
+		}
+
+		itemName = res.getChild("itemName", n).getText();
+		itemPrice = res.getChild("itemPrice", n).getText();
+		itemStock = res.getChild("itemStock", n).getText();
+		itemDes = res.getChild("itemDes", n).getText();
+		itemURL = res.getChild("itemURL", n).getText();
+		itemID = res.getChild("itemID", n).getText();
 		
-		
-		
-		return "";
+		return "SUCCESS";
 	}
 
  	public String getItemPrice() {
@@ -174,6 +205,7 @@ public class ModifyBean {
 
 	public void setItemID(String itemID) {
 		this.itemID = itemID;
+		System.out.println(itemID);
 	}
 	
 	

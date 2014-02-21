@@ -4,12 +4,12 @@ public class Item {
 
 	private String name;
 	private int id;
-	private Element description;
+	private String description;
 	private String url;
 	private int stock;
 	private int price;
 
-	public Item(String name, int id, Element description, String url, int stock,
+	public Item(String name, int id, String description, String url, int stock,
 			int price) {
 
 		this.name = name;
@@ -28,11 +28,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public Element getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(Element description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
