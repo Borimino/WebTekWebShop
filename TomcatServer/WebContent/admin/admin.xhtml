@@ -38,7 +38,7 @@
 
 			<f:facet name="header">Description</f:facet>
 		
-			<h:outputText value="#{o.description}" escape="false"></h:outputText>
+			<h:outputText value="#{o.HTMLdescription}" escape="false"></h:outputText>
 		</h:column>
 
 		<h:column>
@@ -66,7 +66,7 @@
 				<f:param name="itemID" value="#{o.id}" /> 
 				<f:param name="itemName" value="#{o.name}" /> 
 				<f:param name="itemPrice" value="#{o.price}" /> 
-				<f:param name="itemDes" value="#{o.description}" /> 
+				<f:param name="itemDes" value="#{o.XMLdescription}" /> 
 				<f:param name="itemURL" value="#{o.url}" /> 
 			</h:link> </h:form>
 		</h:column>
