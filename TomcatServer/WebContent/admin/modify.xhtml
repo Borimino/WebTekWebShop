@@ -19,19 +19,21 @@
 		<f:viewParam name="itemURL" value="#{modify.itemURL}" />
 	</f:metadata>
 
+	<div id="formwrapper">
 	<h:form>
 		
 		<label for="name"> Item-name </label>
-		<h:inputText id="name"value="#{modify.itemName}"/>
+		<h:inputText id="name" value="#{modify.itemName}"/>
 		<label for="price">Item-price</label>
 		<h:inputText id="price" value="#{modify.itemPrice}"/>
-		<label></label>
-		<h:inputTextarea value="#{modify.itemDes}" cols="25" rows="10"/>
-		<b>Item-URL </b>
-		<h:inputText value="#{modify.itemURL}"/>
-		<b>Item-ID </b>
-		<h:inputText readonly="true" value="#{modify.itemID}"/>
+		<label id="desclabel" for="description">Item-description</label>
+		<h:inputTextarea id="description" value="#{modify.itemDes}" cols="25" rows="10"/>
+		<label for="url">Item-URL</label>
+		<h:inputText id="url" value="#{modify.itemURL}"/>
+		<label for="id">Item-ID</label>
+		<h:inputText id="id" readonly="true" value="#{modify.itemID}"/>
 		<h:commandButton action="#{modify.modifyItem}" value="Submit changes"/>
 	</h:form>
+	</div>
 </body>
 </html>
