@@ -77,10 +77,10 @@
 
 
 
-			<h:commandButton action="#{modifyBean.loadStockData}"
-				value="Change Stock">
-				<f:param name="id" value="#{o.id}" />
-			</h:commandButton>
+			<h:form> <h:link value="Adjust stock" outcome="ADJUST">
+				<f:param name="itemID" value="#{o.id}" />
+				<f:param name="itemStock" value="#{o.stock}" />
+			</h:link></h:form>
 		</h:column>
 
 

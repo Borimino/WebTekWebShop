@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>Adjust the Item Stock</title>
+
+</head>
+<body>
+	<h2>Adjust the Item Stock!!!</h2>
+
+	<f:metadata>
+	<f:viewParam name="itemID" value="#{modify.itemID}" />
+	<f:viewParam name="itemStock" value="#{modify.itemStock}" />
+	</f:metadata>
+
+	<h:form>
+		<br/><b>Item-stock </b>
+		<h:inputText value="#{modify.itemStock}"/>
+		
+		<br/><b>Item-ID </b>
+		<h:inputText readonly="true" value="#{modify.itemID}"/>
+		<br/>
+		
+		<h:commandButton action="#{modify.adjustItemStock}" value="Submit changes"/>
+	</h:form>
+</body>
+
+
+</html>
