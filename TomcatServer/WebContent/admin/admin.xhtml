@@ -62,9 +62,13 @@
 			<f:facet name="header">Modify item</f:facet>
 
 
-			<h:commandButton value="Modify item" actionListener="#{modify.loadModifyData}">
-				<f:param name="id" value="#{o.id}" />
-			</h:commandButton>
+			<h:form> <h:link value="Modify item" outcome="MODIFY"> 
+				<f:param name="itemID" value="#{o.id}" /> 
+				<f:param name="itemName" value="#{o.name}" /> 
+				<f:param name="itemPrice" value="#{o.price}" /> 
+				<f:param name="itemDes" value="#{o.description}" /> 
+				<f:param name="itemURL" value="#{o.url}" /> 
+			</h:link> </h:form>
 		</h:column>
 
 		<h:column>

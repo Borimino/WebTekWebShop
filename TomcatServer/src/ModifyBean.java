@@ -205,6 +205,7 @@ public class ModifyBean {
 
 	public void setItemID(String itemID) {
 		this.itemID = itemID;
+		System.out.println(itemID);
 	}
 	
 	
