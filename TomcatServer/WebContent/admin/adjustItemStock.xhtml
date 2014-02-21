@@ -16,6 +16,7 @@
 	<f:viewParam name="itemStock" value="#{modify.oldItemStock}" />
 	</f:metadata>
 
+	<div id="formwrapper">
 	<h:form>
 		<label for="stock">Item-stock </label>
 		<h:inputText id="stock" value="#{modify.itemStock}"/>
@@ -26,6 +27,7 @@
 		
 		<h:commandButton action="#{modify.adjustItemStock}" value="Submit changes"/>
 	</h:form>
+</div>
 </body>
 
 
