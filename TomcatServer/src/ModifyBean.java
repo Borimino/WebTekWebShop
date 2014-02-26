@@ -28,7 +28,7 @@ public class ModifyBean {
 
 		itemID = "";
 		
-		if(!isInt(itemPrice) && !isInt(itemStock)){
+		if(!isInt(itemPrice)){
 			return "Failure";
 		}
 		
@@ -53,7 +53,7 @@ public class ModifyBean {
 	public String modifyItem(){
 		
 		//Checks if itemPrice and itemStock are integers
-		if(!isInt(itemPrice) && !isInt(itemStock)){
+		if(!isInt(itemPrice)){
 			return "Failure";
 		}
 
@@ -122,7 +122,7 @@ public class ModifyBean {
 		return true;
 	}
 
-	public String loadModifyData(ActionEvent ae){
+	public String loadModifyData(){
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String id = params.get("id");
 		//String id = "0";
