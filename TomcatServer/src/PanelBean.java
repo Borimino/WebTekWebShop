@@ -9,7 +9,6 @@ import org.jdom2.Element;
 import org.jdom2.Namespace;
 
 @ManagedBean
-@SessionScoped
 public class PanelBean {
 
 	private LinkedList<Item> items;
