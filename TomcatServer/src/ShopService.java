@@ -1,20 +1,47 @@
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+
+@Path("shop")
 public class ShopService {
 	
 	private CloudHandler cloudHandler;
 	private Namespace nameSpace = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 
+	@GET
+	@Path("items")
 	public String getItems(){
 		
+		JSONArray jsonArrayItems = new JSONArray();
 		
-		return "res";
+		LinkedList<Item> items = createList();
+		
+		
+		for(Item i: items){
+			JSONObject jsonItemObjects = new JSONObject();
+
+			jsonItemObjects.put("itemName", i.getName());
+			jsonItemObjects.put("itemPrice", i.getPrice());
+			jsonItemObjects.put("itemStock", i.getStock());
+			jsonItemObjects.put("itemURL", i.getUrl());
+			jsonItemObjects.put("itemDescription", i.getXMLdescription());
+			jsonItemObjects.put("itemID", i.getId());
+			
+			jsonArrayItems.put(jsonItemObjects);
+		}
+		
+		System.out.println(jsonArrayItems.toString());
+
+		return jsonArrayItems.toString();
 		
 	}
 	
@@ -29,6 +56,7 @@ public class ShopService {
 			addToList(e, res);
 
 		}
+		
 
 		return res;
 
