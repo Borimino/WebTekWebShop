@@ -1,3 +1,4 @@
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
@@ -34,5 +35,12 @@ public class LoginNormal
 		session.setAttribute("id", id);
 
 		return "You are now logged in";
+	}
+
+	@GET
+	@Path("login")
+	public String login2()
+	{
+		return "Please post to this URL";
 	}
 }
