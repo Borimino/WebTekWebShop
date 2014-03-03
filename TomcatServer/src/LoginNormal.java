@@ -43,4 +43,17 @@ public class LoginNormal
 	{
 		return "Please post to this URL";
 	}
+
+	@POST
+	@Path("createCustomer")
+	public String create(@QueryParam("username") String username, @QueryParam("password") String password)
+	{
+		Document customer = XMLHandler.createCustomer(username, password);
+
+		CloudHandler chandler = new CloudHandler(n);
+		HttpURLConnection con = chandler.connect(true, "/createCustomer");
+		Document customerResponse = chandler.getResponse(true, con, customer, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+
+		return "A new customer has now been created";
+	}
 }
