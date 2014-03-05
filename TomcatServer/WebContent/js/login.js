@@ -16,15 +16,28 @@ function login()
 {
 	alert("Logging in");
 
-	var username = $('#username');
-	var password = $('#password');
+	var username = $('#username').val();
+	var password = $('#password').val();
 
-	sendRequest("POST", "rest/login/login", "username=" + username + "&password=" + password, function(response) {
+	console.log(username);
+	console.log(password);
 
-		alert("Logged in");
-		$('#loginResponse').text(response);
-
+	$.ajax({
+		type: "POST",
+		url: "rest/login/login",
+		data: { username: username, password: password},
+		success: function(response) {
+			alert("Logged in");
+			$('#loginResponse').text(response);
+		}
 	});
+
+	//sendRequest("POST", "rest/login/login", "?username=" + username + "&password=" + password, function(response) {
+
+		//alert("Logged in");
+		//$('#loginResponse').text(response);
+
+	//});
 }
 
 function create(form)
@@ -33,7 +46,7 @@ function create(form)
 	var username = form.username.value;
 	var password = form.password.value;
 
-	sendRequest("POST", "/login/createCustomer", "username=" + username + "&password=" + password, function(response) {
+	sendRequest("POST", "/login/createCustomer", "?username=" + username + "&password=" + password, function(response) {
 
 		//$('#loginResponse').text(response);
 

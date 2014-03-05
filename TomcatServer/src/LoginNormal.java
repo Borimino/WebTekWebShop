@@ -9,15 +9,21 @@ import java.net.*;
 @Path("login")
 public class LoginNormal 
 {
-	@Context HttpSession session;
+	HttpSession session;
 
 	Namespace n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 	String id;
 
+	public LoginNormal(@Context HttpServletRequest servletRequest)
+	{
+		session = servletRequest.getSession();
+	}
+
 	@POST
 	@Path("login")
-	public String login(@QueryParam("username") String username, @QueryParam("password") String password)
+	public String login(@FormParam("username") String username, @FormParam("password") String password)
 	{
+
 		if(username.equals("") || password.equals(""))
 		{
 			return "You did not enter a username or password";
@@ -25,9 +31,15 @@ public class LoginNormal
 
 		Document login = XMLHandler.login(username, password);
 
+		try{
+		XMLHandler.getOutputter().output(login, System.out);
+		} catch(Exception e) {}
+
 		CloudHandler chandler = new CloudHandler(n);
 		HttpURLConnection con = chandler.connect(true, "/login");
 		Document loginResponse = chandler.getResponse(true, con, login, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+
+		System.out.println(chandler.getLastResponse());
 
 		if(loginResponse == null || loginResponse.getRootElement() == null || loginResponse.getRootElement().getChild("customerID", n) == null)
 		{
@@ -37,6 +49,7 @@ public class LoginNormal
 
 		Element ID = loginResponse.getRootElement().getChild("customerID", n);
 		id = ID.getText();
+		System.out.println(id);
 		session.setAttribute("id", id);
 
 		return "You are now logged in";
