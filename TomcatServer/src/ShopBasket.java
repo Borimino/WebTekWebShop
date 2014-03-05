@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -32,12 +33,12 @@ public class ShopBasket {
 	
 	@POST
 	@Path("update")
-	public void updateBasket(JSONArray items){
+	public void updateBasket(@FormParam("items") String items){
 
 		
 		JSONObject res = new JSONObject(items);
 		
-		
+		System.out.println(res);
 		
 		
 		//HVAD FANDEN ER DET???
