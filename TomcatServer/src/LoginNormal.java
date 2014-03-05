@@ -18,6 +18,11 @@ public class LoginNormal
 	@Path("login")
 	public String login(@QueryParam("username") String username, @QueryParam("password") String password)
 	{
+		if(username.equals("") || password.equals(""))
+		{
+			return "You did not enter a username or password";
+		}
+
 		Document login = XMLHandler.login(username, password);
 
 		CloudHandler chandler = new CloudHandler(n);
@@ -48,6 +53,11 @@ public class LoginNormal
 	@Path("createCustomer")
 	public String create(@QueryParam("username") String username, @QueryParam("password") String password)
 	{
+		if(username.equals("") || password.equals(""))
+		{
+			return "You did not enter a username or password";
+		}
+
 		Document customer = XMLHandler.createCustomer(username, password);
 
 		CloudHandler chandler = new CloudHandler(n);

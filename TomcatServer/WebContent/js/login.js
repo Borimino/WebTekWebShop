@@ -12,13 +12,16 @@
  */
 
 
-function login(form)
+function login()
 {
-	var username = form.username.value;
-	var password = form.password.value;
+	alert("Logging in");
 
-	sendRequest("POST", "/login/login", "username=" + username + "&password=" + password, function(response) {
+	var username = $('#username');
+	var password = $('#password');
 
+	sendRequest("POST", "rest/login/login", "username=" + username + "&password=" + password, function(response) {
+
+		alert("Logged in");
 		$('#loginResponse').text(response);
 
 	});
@@ -26,12 +29,17 @@ function login(form)
 
 function create(form)
 {
+	alert("Creating user");
 	var username = form.username.value;
 	var password = form.password.value;
 
 	sendRequest("POST", "/login/createCustomer", "username=" + username + "&password=" + password, function(response) {
 
-		$('#loginResponse').text(response);
+		//$('#loginResponse').text(response);
 
 	});
 }
+
+$(document).ready(function() {
+	$('#login').click(login);
+});
