@@ -39,7 +39,6 @@ public class ShopService {
 			jsonArrayItems.put(jsonItemObjects);
 		}
 		
-		System.out.println(jsonArrayItems.toString());
 
 		return jsonArrayItems.toString();
 		
