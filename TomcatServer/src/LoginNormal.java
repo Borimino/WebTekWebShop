@@ -31,15 +31,10 @@ public class LoginNormal
 
 		Document login = XMLHandler.login(username, password);
 
-		try{
-		XMLHandler.getOutputter().output(login, System.out);
-		} catch(Exception e) {}
-
 		CloudHandler chandler = new CloudHandler(n);
 		HttpURLConnection con = chandler.connect(true, "/login");
 		Document loginResponse = chandler.getResponse(true, con, login, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 
-		System.out.println(chandler.getLastResponse());
 
 		if(loginResponse == null || loginResponse.getRootElement() == null || loginResponse.getRootElement().getChild("customerID", n) == null)
 		{
@@ -49,7 +44,7 @@ public class LoginNormal
 
 		Element ID = loginResponse.getRootElement().getChild("customerID", n);
 		id = ID.getText();
-		System.out.println(id);
+
 		session.setAttribute("id", id);
 
 		return "You are now logged in";
@@ -64,7 +59,7 @@ public class LoginNormal
 
 	@POST
 	@Path("createCustomer")
-	public String create(@QueryParam("username") String username, @QueryParam("password") String password)
+	public String create(@FormParam("username") String username, @FormParam("password") String password)
 	{
 		if(username.equals("") || password.equals(""))
 		{
