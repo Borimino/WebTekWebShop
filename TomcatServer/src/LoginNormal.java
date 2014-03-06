@@ -50,13 +50,6 @@ public class LoginNormal
 		return "You are now logged in";
 	}
 
-	@GET
-	@Path("login")
-	public String login2()
-	{
-		return "Please post to this URL";
-	}
-
 	@POST
 	@Path("createCustomer")
 	public String create(@FormParam("username") String username, @FormParam("password") String password)
@@ -71,6 +64,11 @@ public class LoginNormal
 		CloudHandler chandler = new CloudHandler(n);
 		HttpURLConnection con = chandler.connect(true, "/createCustomer");
 		Document customerResponse = chandler.getResponse(true, con, customer, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+
+		if(customerResponse == null || customerResponse.getRootElement() == null || customerResponse.getRootElement().getChild("customerID", n) == null)
+		{
+			return "This user already exists";
+		}
 
 		return "A new customer has now been created";
 	}
