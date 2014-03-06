@@ -14,32 +14,37 @@
 
 function login()
 {
-	alert("Logging in");
 
-	var username = $('#username');
-	var password = $('#password');
+	var username = $('#username').val();
+	var password = $('#password').val();
 
-	sendRequest("POST", "rest/login/login", "username=" + username + "&password=" + password, function(response) {
-
-		alert("Logged in");
-		$('#loginResponse').text(response);
-
+	$.ajax({
+		type: "POST",
+		url: "rest/login/login",
+		data: { username: username, password: password},
+		success: function(response) {
+			$('#loginResponse').text(response);
+		}
 	});
+
 }
 
-function create(form)
+function create()
 {
-	alert("Creating user");
-	var username = form.username.value;
-	var password = form.password.value;
+	var username = $('#username').val();
+	var password = $('#password').val();
 
-	sendRequest("POST", "/login/createCustomer", "username=" + username + "&password=" + password, function(response) {
-
-		//$('#loginResponse').text(response);
-
+	$.ajax({
+		type: "POST",
+		url: "rest/login/createCustomer",
+		data: { username: username, password: password},
+		success: function(response) {
+			$('#loginResponse').text(response);
+		}
 	});
 }
 
 $(document).ready(function() {
 	$('#login').click(login);
+	$('#create').click(create);
 });

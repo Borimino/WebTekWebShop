@@ -9,15 +9,21 @@ import java.net.*;
 @Path("login")
 public class LoginNormal 
 {
-	@Context HttpSession session;
+	HttpSession session;
 
 	Namespace n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 	String id;
 
+	public LoginNormal(@Context HttpServletRequest servletRequest)
+	{
+		session = servletRequest.getSession();
+	}
+
 	@POST
 	@Path("login")
-	public String login(@QueryParam("username") String username, @QueryParam("password") String password)
+	public String login(@FormParam("username") String username, @FormParam("password") String password)
 	{
+
 		if(username.equals("") || password.equals(""))
 		{
 			return "You did not enter a username or password";
@@ -29,6 +35,7 @@ public class LoginNormal
 		HttpURLConnection con = chandler.connect(true, "/login");
 		Document loginResponse = chandler.getResponse(true, con, login, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 
+
 		if(loginResponse == null || loginResponse.getRootElement() == null || loginResponse.getRootElement().getChild("customerID", n) == null)
 		{
 			this.id = "";
@@ -37,21 +44,15 @@ public class LoginNormal
 
 		Element ID = loginResponse.getRootElement().getChild("customerID", n);
 		id = ID.getText();
+
 		session.setAttribute("id", id);
 
 		return "You are now logged in";
 	}
 
-	@GET
-	@Path("login")
-	public String login2()
-	{
-		return "Please post to this URL";
-	}
-
 	@POST
 	@Path("createCustomer")
-	public String create(@QueryParam("username") String username, @QueryParam("password") String password)
+	public String create(@FormParam("username") String username, @FormParam("password") String password)
 	{
 		if(username.equals("") || password.equals(""))
 		{
@@ -63,6 +64,11 @@ public class LoginNormal
 		CloudHandler chandler = new CloudHandler(n);
 		HttpURLConnection con = chandler.connect(true, "/createCustomer");
 		Document customerResponse = chandler.getResponse(true, con, customer, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+
+		if(customerResponse == null || customerResponse.getRootElement() == null || customerResponse.getRootElement().getChild("customerID", n) == null)
+		{
+			return "This user already exists";
+		}
 
 		return "A new customer has now been created";
 	}
