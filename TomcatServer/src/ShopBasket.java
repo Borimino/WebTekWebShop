@@ -45,6 +45,8 @@ public class ShopBasket {
 	@Path("update")
 	public String updateBasket(@FormParam("itemList") String itemList) {
 
+		
+		
 		// Correct to some condition that checks login!
 		if (session.getAttribute("id") == null || ((String) session.getAttribute("id")).equals("")) {
 
@@ -63,11 +65,7 @@ public class ShopBasket {
 			String itemID = (String) o.get("itemID");
 			String amount = (String) o.get("amount");
 
-			// TODO: Please correct med!!!!!
 			String customerID = (String) session.getAttribute("id");
-
-			// Temp ID until connection to login is established
-			//String customerID = "69";
 
 			Document buydoc = XMLHandler.buyItem(itemID, amount, customerID);
 
@@ -75,13 +73,6 @@ public class ShopBasket {
 			Document responseDoc = cloudHandler.getResponse(true, con, buydoc,
 					XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 
-
-			try {
-				XMLHandler.getOutputter().output(responseDoc, System.out);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
 			
 			java.util.List<Element> children = responseDoc.getRootElement().getChildren();

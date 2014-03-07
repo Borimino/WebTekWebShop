@@ -103,28 +103,42 @@ public class ShopService {
 
 	private Element convertToCleanHTML(Element element) {
 
+		Namespace xhtml = Namespace.getNamespace("");
 		
-		for (Element e : element.getChildren()) {
+		for(Element e : element.getChildren())
+		{
 			convertToCleanHTML(e);
 		}
-		if (element.getName().equals("document")) {
+		if(element.getName().equals("document"))
+		{
 			element.setName("div");
+			element.setNamespace(xhtml);
 		}
-		if (element.getName().equals("bold")) {
+		if(element.getName().equals("bold"))
+		{
 			element.setName("strong");
+			element.setNamespace(xhtml);
 		}
-		if (element.getName().equals("italics")) {
+		if(element.getName().equals("italics"))
+		{
 			element.setName("i");
+			element.setNamespace(xhtml);
 		}
-		if (element.getName().equals("list")) {
+		if(element.getName().equals("list"))
+		{
 			element.setName("ul");
+			element.setNamespace(xhtml);
 		}
-		if (element.getName().equals("item")) {
+		if(element.getName().equals("item"))
+		{
 			element.setName("li");
+			element.setNamespace(xhtml);
 		}
-
+		
 		return element;
 
+
+		
 	}
 	
 	private Element convertToHTML(Element element) {
