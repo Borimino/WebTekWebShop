@@ -15,9 +15,9 @@ function add_to_basket(itemID, itemAmount, priceprItem, itemname){
 	res["amount"] = itemAmount;
 	basket.push(res);
 	
-	basketlist.push(itemname);
+	productlist.push(itemname);
 	
-	total += priceprItem;
+	total += priceprItem * itemAmount;
 	item_count += itemAmount;
 	
 	basket_update();
@@ -54,6 +54,14 @@ function empty_basket() {
 
 function basket_update(){
 	
+	$('#basketlist').text("");
 	
+	$(productlist).each(function(index, item){
+		
+		$('#basketlist').append($(document.createElement("li")).text(item));
+		
+	});
+	
+	$('#baskettotal').html(total); 
 	
 }
