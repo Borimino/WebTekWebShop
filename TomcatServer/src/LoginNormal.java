@@ -13,6 +13,7 @@ public class LoginNormal
 
 	Namespace n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
 	String id;
+	String name;
 
 	public LoginNormal(@Context HttpServletRequest servletRequest)
 	{
