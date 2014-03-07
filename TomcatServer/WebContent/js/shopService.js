@@ -39,10 +39,6 @@ function addItemsToTable(items) {
 	itemDescription.textContent = "item Description";
 	tr.appendChild(itemDescription);
 
-	var itemStock = document.createElement("td");
-	itemStock.textContent = "Number of items";
-	tr.appendChild(itemStock);
-
 
 	tableBody.appendChild(tr);
 
@@ -72,13 +68,6 @@ function addItemsToTable(items) {
 			tr.appendChild(itemDescription);
 			console.log(item.itemDescription);
 
-			var itemNumber = document.createElement("td");
-			var inputField = document.createElement("input");
-			inputField.type = "text";
-			inputField.className = "css-class-name";
-			inputField.value = 0;
-			itemNumber.appendChild(inputField);
-			tr.appendChild(itemNumber);
 
 			var button = document.createElement("td");
 			var itemButton = document.createElement("button");
