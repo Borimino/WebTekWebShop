@@ -118,6 +118,7 @@ public class PanelBean {
 
 	}
 
+
 	public LinkedList<Item> getItems() {
 		return items;
 	}

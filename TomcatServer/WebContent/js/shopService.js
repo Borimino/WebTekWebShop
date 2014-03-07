@@ -22,30 +22,53 @@ function addItemsToTable(items) {
 
 	tableBody.innerHTML = "";
 	
-	console.log(items.length);
+	var tr = document.createElement("tr");
+	var itemName = document.createElement("td");
+	itemName.textContent = "item Name";
+	tr.appendChild(itemName);
+
+	var itemPrice = document.createElement("td");
+	itemPrice.textContent = "item Price";
+	tr.appendChild(itemPrice);
+
+	var itemURL = document.createElement("td");
+	itemURL.textContent = "item Picture";
+	tr.appendChild(itemURL);
+
+	var itemDesription = document.createElement("td");
+	itemDesription.textContent = "item Description";
+	tr.appendChild(itemURL);
+	
+	tableBody.appendChild(tr);
+
 
 	for (var i = 0; i < items.length; i++) {
-
 		var item = items[i];
-		var tr = document.createElement("tr");
 
-		var itemName = document.createElement("td");
-		itemName.textContent = item.itemName;
-		tr.appendChild(itemName);
+		if(item.itemStock > 0){
+		
+			var tr = document.createElement("tr");
 
-		var itemPrice = document.createElement("td");
-		itemPrice.textContent = item.itemPrice;
-		tr.appendChild(itemPrice);
+			var itemName = document.createElement("td");
+			itemName.textContent = item.itemName;
+			tr.appendChild(itemName);
 
-		var itemURL = document.createElement("td");
-		itemURL.textContent = item.itemURL;
-		tr.appendChild(itemURL);
+			var itemPrice = document.createElement("td");
+			itemPrice.textContent = item.itemPrice;
+			tr.appendChild(itemPrice);
 
-		var itemDesription = document.createElement("td");
-		itemDesription.textContent = item.itemDescription;
-		tr.appendChild(itemURL);
+			var itemURL = document.createElement("td");
+			var itemIMG = document.createElement("img");
+			itemIMG.src = item.itemURL;
+			itemURL.appendChild(itemIMG);
+			tr.appendChild(itemURL);
 
-		tableBody.appendChild(tr);
+			var itemDescription = document.createElement("td");
+			itemDescription.textContent = item.itemDescription;
+			tr.appendChild(itemDescription);
+			console.log(item.itemDescription);
+			tableBody.appendChild(tr);
+		}
 	}
 
 }

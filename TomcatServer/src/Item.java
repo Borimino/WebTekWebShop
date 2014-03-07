@@ -11,8 +11,9 @@ public class Item {
 	private String url;
 	private int stock;
 	private int price;
+	private String cleanHTMLDescription;
 
-	public Item(String name, int id, String HTMLdescription, String XMLdescription, String url, int stock,
+	public Item(String name, int id, String HTMLdescription, String XMLdescription, String cleanHTMLDescription, String url, int stock,
 			int price) {
 
 		this.name = name;
@@ -22,6 +23,14 @@ public class Item {
 		this.stock = stock;
 		this.price = price;
 		this.setId(id);
+		this.cleanHTMLDescription = cleanHTMLDescription;
+		
+	}
+	
+	public Item(String name, int id, String HTMLdescription, String XMLdescription, String url, int stock,
+			int price) {
+
+		this(name, id, HTMLdescription, XMLdescription, "", url, stock, price);		
 	}
 
 	public String getName() {
@@ -80,7 +89,13 @@ public class Item {
 		HTMLdescription = hTMLdescription;
 	}
 
+	public String getCleanHTMLDescription(){
+		return cleanHTMLDescription;
+	}
 	
+	public void setCleanHTMLDescription(String newCleanHTMLDescription){
+		cleanHTMLDescription = newCleanHTMLDescription;
+	}
 	
 	
 }

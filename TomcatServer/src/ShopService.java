@@ -10,40 +10,38 @@ import org.jdom2.Namespace;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 @Path("shop")
 public class ShopService {
-	
-	private CloudHandler cloudHandler;
-	private Namespace nameSpace = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
+
+	private Namespace nameSpace = Namespace
+			.getNamespace("http://www.cs.au.dk/dWebTek/2014");
+	private CloudHandler cloudHandler = new CloudHandler(nameSpace);
 
 	@GET
 	@Path("items")
-	public String getItems(){
-		
+	public String getItems() {
+
 		JSONArray jsonArrayItems = new JSONArray();
-		
+
 		LinkedList<Item> items = createList();
-		
-		
-		for(Item i: items){
+
+		for (Item i : items) {
 			JSONObject jsonItemObjects = new JSONObject();
 
 			jsonItemObjects.put("itemName", i.getName());
 			jsonItemObjects.put("itemPrice", i.getPrice());
 			jsonItemObjects.put("itemStock", i.getStock());
 			jsonItemObjects.put("itemURL", i.getUrl());
-			jsonItemObjects.put("itemDescription", i.getXMLdescription());
+			jsonItemObjects.put("itemDescription", i.getCleanHTMLDescription());
 			jsonItemObjects.put("itemID", i.getId());
-			
+
 			jsonArrayItems.put(jsonItemObjects);
 		}
-		
 
 		return jsonArrayItems.toString();
-		
+
 	}
-	
+
 	public LinkedList<Item> createList() {
 
 		LinkedList<Item> res = new LinkedList<Item>();
@@ -55,7 +53,6 @@ public class ShopService {
 			addToList(e, res);
 
 		}
-		
 
 		return res;
 
@@ -68,12 +65,21 @@ public class ShopService {
 		int id = Integer.parseInt(e.getChildText("itemID", nameSpace));
 
 		Element descriptionElement = e.getChild("itemDescription", nameSpace);
-		
-		String XMLdescription = XMLHandler.getOutputter().outputString(descriptionElement);
-		
-		Element eDescription = convertToHTML(descriptionElement.getChild("document", nameSpace));
 
-		String HTMLdescription = XMLHandler.getOutputter().outputString(eDescription);
+		String XMLdescription = XMLHandler.getOutputter().outputString(
+				descriptionElement);
+
+		Element eDescription = convertToHTML(descriptionElement.getChild(
+				"document", nameSpace).clone());
+
+		String HTMLdescription = XMLHandler.getOutputter().outputString(
+				eDescription);
+		
+		Element cleanEDescription = convertToCleanHTML(descriptionElement.getChild(
+				"document", nameSpace).clone());
+
+		String cleanHTMLdescription = XMLHandler.getOutputter().outputString(
+				cleanEDescription);
 
 		String url = e.getChildText("itemURL", nameSpace);
 
@@ -88,12 +94,39 @@ public class ShopService {
 
 		int price = Integer.parseInt(e.getChildText("itemPrice", nameSpace));
 
-		Item temp = new Item(name, id, HTMLdescription, XMLdescription, url, stock, price);
+		Item temp = new Item(name, id, HTMLdescription, XMLdescription, cleanHTMLdescription, url,
+				stock, price);
 
 		target.add(temp);
 
 	}
 
+	private Element convertToCleanHTML(Element element) {
+
+		
+		for (Element e : element.getChildren()) {
+			convertToCleanHTML(e);
+		}
+		if (element.getName().equals("document")) {
+			element.setName("div");
+		}
+		if (element.getName().equals("bold")) {
+			element.setName("strong");
+		}
+		if (element.getName().equals("italics")) {
+			element.setName("i");
+		}
+		if (element.getName().equals("list")) {
+			element.setName("ul");
+		}
+		if (element.getName().equals("item")) {
+			element.setName("li");
+		}
+
+		return element;
+
+	}
+	
 	private Element convertToHTML(Element element) {
 
 		Namespace xhtml = Namespace.getNamespace("http://www.w3.org/1999/xhtml");
