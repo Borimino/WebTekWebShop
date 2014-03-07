@@ -44,6 +44,7 @@ function empty_basket() {
 					basket = [];
 					item_count = 0;
 				}
+				
 				basket_update();
 			}
 		});
