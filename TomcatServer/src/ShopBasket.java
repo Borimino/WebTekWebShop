@@ -1,3 +1,4 @@
+import java.awt.List;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -42,42 +43,48 @@ public class ShopBasket {
 	public String updateBasket(@FormParam("itemID") String itemID,
 			@FormParam("amount") String amount) {
 
-		Element root = new Element("sellItems");
-		Document buydoc = new Document(root);
-		
-		Element shopIDElement = new Element("shopKey");
-		shopIDElement.addContent("1E3D5BA1FD481ECFC983D4B3");
-		
-		Element itemIDElement = new Element("itemID");
-		itemIDElement.addContent(itemID);
-		
-		Element customerIDElement = new Element("customerID");
-		String customerID = (String) session.getAttribute("id");
-		customerIDElement.addContent(customerID);
-		
-		Element saleAmountElement = new Element("saleAmount");
-		saleAmountElement.addContent(amount);
-		
-		
-		root.addContent(shopIDElement);
-		root.addContent(itemIDElement);
-		root.addContent(customerIDElement);
-		root.addContent(saleAmountElement);
-		
-		
+		// Correct to some condition that checks login!
+		if (false) {
+
+			return "Not logged in!";
+
+		}
+
+		// TODO: Please correct med!!!!!
+		// String customerID = (String) session.getAttribute("id");
+
+		// Temp ID until connection to login is established
+		String customerID = "69";
+
+		Document buydoc = XMLHandler.buyItem(itemID, amount, customerID);
+
 		HttpURLConnection con = cloudHandler.connect(true, "/sellItems");
-		cloudHandler.getResponse(true, con, buydoc, XMLHandler.getOutputter(),
-				XMLHandler.getSAXBuilder());
+		Document responseDoc = cloudHandler.getResponse(true, con, buydoc,
+				XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+
 
 		try {
-			XMLHandler.getOutputter().output(buydoc, System.out);
+			XMLHandler.getOutputter().output(responseDoc, System.out);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return "SUCCESSS!!!!!!!!!!!!";
-
+		
+		java.util.List<Element> children = responseDoc.getRootElement().getChildren();
+		
+		if(children.get(0).getName().equals("ok")){
+			
+			return "SUCCESSS!!!!!!!";
+			
+		} else if(children.get(0).getName().equals("itemSoldOut")){
+			
+			return "Der æ fler tilbag!!!";
+			
+		} else {
+			
+			return "Der skete en fejl";			
+		}
 		
 	}
 

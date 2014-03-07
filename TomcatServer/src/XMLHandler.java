@@ -116,6 +116,35 @@ public class XMLHandler {
 		return createCustomer;
 	}
 	
+	public static Document buyItem(String itemID, String amount, String customerID){
+		
+		Element root = new Element("sellItems", n);
+		Document buydoc = new Document(root);
+
+		Element shopIDElement = new Element("shopKey", n);
+		shopIDElement.addContent("1E3D5BA1FD481ECFC983D4B3");
+
+		Element itemIDElement = new Element("itemID", n);
+		itemIDElement.addContent(itemID);
+
+		Element customerIDElement = new Element("customerID", n);
+		customerIDElement.addContent(customerID);
+		
+		Element saleAmountElement = new Element("saleAmount", n);
+		saleAmountElement.addContent(amount);
+
+		root.addContent(shopIDElement);
+		root.addContent(itemIDElement);
+		root.addContent(customerIDElement);
+		root.addContent(saleAmountElement);
+		
+
+		return buydoc;
+		
+		
+	}
+	
+	
 	public static Document convertCloudXML(){
 		
 		return null;
