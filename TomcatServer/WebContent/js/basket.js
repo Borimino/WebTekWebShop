@@ -3,16 +3,20 @@
  */
 
 var basket = [];
+var productlist = [];
 var item_count = 0;
 var total = 0;
 
-function add_to_basket(itemID, itemAmount, priceprItem) {
+function add_to_basket(itemID, itemAmount, priceprItem, itemname){
 
 	var res = {};
 
 	res["itemID"] = itemID;
 	res["amount"] = itemAmount;
 	basket.push(res);
+	
+	basketlist.push(itemname);
+	
 	total += priceprItem;
 	item_count += itemAmount;
 	
