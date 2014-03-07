@@ -39,10 +39,6 @@ function addItemsToTable(items) {
 	itemDescription.textContent = "item Description";
 	tr.appendChild(itemDescription);
 
-	var itemStock = document.createElement("td");
-	itemStock.textContent = "Number of items";
-	tr.appendChild(itemStock);
-
 
 	tableBody.appendChild(tr);
 
@@ -72,20 +68,14 @@ function addItemsToTable(items) {
 			tr.appendChild(itemDescription);
 			console.log(item.itemDescription);
 
-			var itemNumber = document.createElement("td");
-			var inputField = document.createElement("input");
-			inputField.type = "text";
-			inputField.className = "css-class-name";
-			inputField.value = 0;
-			itemNumber.appendChild(inputField);
-			tr.appendChild(itemNumber);
 
 			var button = document.createElement("td");
 			var itemButton = document.createElement("button");
 			itemButton.type = "button";
 			itemButton.innerHTML = "Buy";
 			button.appendChild(itemButton);
-			itemButton.onClick = "add_to_basket";
+			itemButton.setAttribute('onclick', "add_to_basket('" + item.itemID + "','" + "1" + "','" + item.itemPrice + "','" + item.itemName + "')");
+			//itemButton.onClick = "add_to_basket('" + itemID + "','" + itemNumber + "','" + itemPrice + "','" + itemName + "');";
 			tr.appendChild(button);
 
 			tableBody.appendChild(tr);
