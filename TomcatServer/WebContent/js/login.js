@@ -47,6 +47,17 @@ function create()
 	});
 }
 
+function isLoggedIn()
+{
+	$.ajax({
+		type: "GET",
+	url: "rest/login/isloggedin",
+	success: function(response) {
+		$('#loginResponse').text(response);
+	}
+	});
+}
+
 $(document).ready(function() {
 	$('#login').click(login);
 	$('#create').click(create);
