@@ -74,7 +74,8 @@ function addItemsToTable(items) {
 			itemButton.type = "button";
 			itemButton.innerHTML = "Buy";
 			button.appendChild(itemButton);
-			itemButton.onClick = "add_to_basket";
+			itemButton.setAttribute('onclick', "add_to_basket('" + item.itemID + "','" + "1" + "','" + item.itemPrice + "','" + item.itemName + "')");
+			//itemButton.onClick = "add_to_basket('" + itemID + "','" + itemNumber + "','" + itemPrice + "','" + itemName + "');";
 			tr.appendChild(button);
 
 			tableBody.appendChild(tr);
