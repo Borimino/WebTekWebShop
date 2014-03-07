@@ -38,53 +38,68 @@ public class ShopBasket {
 		session = sessionrequest.getSession();
 	}
 
+	/*
+	 * IKKE TESTET!!!!
+	 */
 	@POST
 	@Path("update")
-	public String updateBasket(@FormParam("itemID") String itemID,
-			@FormParam("amount") String amount) {
+	public String updateBasket(@FormParam("itemList") String itemList) {
 
 		// Correct to some condition that checks login!
-		if (false) {
+		if (session.getAttribute("id") == null || ((String) session.getAttribute("id")).equals("")) {
 
 			return "Not logged in!";
 
 		}
 
-		// TODO: Please correct med!!!!!
-		// String customerID = (String) session.getAttribute("id");
+		String res = "";
 
-		// Temp ID until connection to login is established
-		String customerID = "69";
+		JSONArray jsonArray = new JSONArray(itemList);
 
-		Document buydoc = XMLHandler.buyItem(itemID, amount, customerID);
+		for(int i = 0; i < jsonArray.length(); i++)
+		{
+			JSONObject o = (JSONObject) jsonArray.get(i);
+			
+			String itemID = (String) o.get("itemID");
+			String amount = (String) o.get("amount");
 
-		HttpURLConnection con = cloudHandler.connect(true, "/sellItems");
-		Document responseDoc = cloudHandler.getResponse(true, con, buydoc,
-				XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+			// TODO: Please correct med!!!!!
+			String customerID = (String) session.getAttribute("id");
+
+			// Temp ID until connection to login is established
+			//String customerID = "69";
+
+			Document buydoc = XMLHandler.buyItem(itemID, amount, customerID);
+
+			HttpURLConnection con = cloudHandler.connect(true, "/sellItems");
+			Document responseDoc = cloudHandler.getResponse(true, con, buydoc,
+					XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 
 
-		try {
-			XMLHandler.getOutputter().output(responseDoc, System.out);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				XMLHandler.getOutputter().output(responseDoc, System.out);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			java.util.List<Element> children = responseDoc.getRootElement().getChildren();
+			
+			if(children.get(0).getName().equals("ok")){
+				
+				res += "Success ved "+itemID;
+				
+			} else if(children.get(0).getName().equals("itemSoldOut")){
+				
+				res += "Der er ikke flere af " + itemID + " tilbage";
+				
+			} else {
+				
+				res += "Der skete en fejl ved" + itemID;			
+			}
 		}
-		
-		
-		java.util.List<Element> children = responseDoc.getRootElement().getChildren();
-		
-		if(children.get(0).getName().equals("ok")){
-			
-			return "SUCCESSS!!!!!!!";
-			
-		} else if(children.get(0).getName().equals("itemSoldOut")){
-			
-			return "Der æ fler tilbag!!!";
-			
-		} else {
-			
-			return "Der skete en fejl";			
-		}
+		return res;
 		
 	}
 
