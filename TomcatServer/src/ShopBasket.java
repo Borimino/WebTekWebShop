@@ -79,15 +79,15 @@ public class ShopBasket {
 			
 			if(children.get(0).getName().equals("ok")){
 				
-				res += "Success ved "+itemID;
+				res += "Succæ ve' "+itemID + "\n";
 				
 			} else if(children.get(0).getName().equals("itemSoldOut")){
 				
-				res += "Der er ikke flere af " + itemID + " tilbage";
+				res += "Der æ' fler tilbage a' " + itemID + " tilbage \n";
 				
 			} else {
 				
-				res += "Der skete en fejl ved" + itemID;			
+				res += "Dar sket' a fej wæ" + itemID + "\n";			
 			}
 		}
 		return res;
