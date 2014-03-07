@@ -39,13 +39,18 @@ public class LoginNormal
 		if(loginResponse == null || loginResponse.getRootElement() == null || loginResponse.getRootElement().getChild("customerID", n) == null)
 		{
 			this.id = "";
+			session.setAttribute("id", id);
+			session.setAttribute("name", "");
 			return "You entered a wrong username or password";
 		}
 
 		Element ID = loginResponse.getRootElement().getChild("customerID", n);
 		id = ID.getText();
+		Element Name = loginResponse.getRootElement().getChild("customerName", n);
+		name = Name.getText();
 
 		session.setAttribute("id", id);
+		session.setAttribute("name", name);
 
 		return "You are now logged in";
 	}
@@ -71,5 +76,16 @@ public class LoginNormal
 		}
 
 		return "A new customer has now been created";
+	}
+
+	@GET
+	@Path("isloggedin")
+	public String isloggedin()
+	{
+		if(session.getAttribute("id") == null || session.getAttribute("id").equals(""))
+		{
+			return "";
+		}
+		return "You are logged in " + session.getAttribute("name");
 	}
 }
