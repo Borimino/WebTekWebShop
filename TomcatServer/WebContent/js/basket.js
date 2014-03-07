@@ -2,21 +2,46 @@
  * HRELLOEW LITTLE BASKET!
  */
 
+var basket = {};
+var item_count = 0;
 
-function test(){
+function add_to_basket(itemID, itemAmount) {
 
-$.ajax({
-	type : "POST",
-	url : "rest/basket/update",
-	data : { items : {
-		"3169": "10",
-		"3175": "15"
-	}},
-	success : function(data) {
+	basket[itemID] = itemAmount;
+	item_count += itemAmount;
+}
 
-		alert(data);
+function empty_basket() {
+
+
+	function basket_loop() {
+
+		setTimeout(function() {
+
+			id =
+			buy_item(id, basket[id]);
+
+		}, delay);
 
 	}
-});
+
+}
+
+function buy_item(itemID, itemAmount) {
+
+	$.ajax({
+		type : "POST",
+		url : "rest/basket/update",
+		data : {
+			itemID : itemID,
+			amount : itemAmount
+
+		},
+		success : function(answer) {
+
+			alert(answer);
+
+		}
+	});
 
 }
