@@ -4,33 +4,52 @@
 
 var basket = [];
 var item_count = 0;
+var total = 0;
 
-function add_to_basket(itemID, itemAmount) {
+function add_to_basket(itemID, itemAmount, priceprItem) {
 
 	var res = {};
 
-	res[itemID] = itemAmount;
+	res["itemID"] = itemID;
+	res["amount"] = itemAmount;
 	basket.push(res);
+	total += priceprItem;
 	item_count += itemAmount;
 	
-	
+	basket_update();
+
 }
 
-
 function empty_basket() {
-
+	
+	
+	if(basket.length > 0){
 	$.ajax({
 		type : "POST",
 		url : "rest/basket/update",
 		data : {
-			itemList : basket
+			itemList : JSON.stringify(basket)
 
 		},
 		success : function(answer) {
 
 			alert(answer);
-
+			total = 0;
+			basket = [];
+			item_count = 0;
 		}
 	});
 
+	} else {
+		
+		alert("Du skal smidde et item i kurven inden du kan købe det!!!!!");
+		
+	}
+	
+}
+
+function basket_update(){
+	
+	
+	
 }
