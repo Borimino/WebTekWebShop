@@ -64,7 +64,7 @@ function addItemsToTable(items) {
 			tr.appendChild(itemURL);
 
 			var itemDescription = document.createElement("td");
-			itemDescription.textContent = item.itemDescription;
+			itemDescription.innerHTML = item.itemDescription;
 			tr.appendChild(itemDescription);
 			console.log(item.itemDescription);
 
