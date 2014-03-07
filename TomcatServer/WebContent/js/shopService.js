@@ -23,19 +23,19 @@ function addItemsToTable(items) {
 	tableBody.innerHTML = "";
 
 	var tr = document.createElement("tr");
-	var itemName = document.createElement("td");
+	var itemName = document.createElement("th");
 	itemName.textContent = "item Name";
 	tr.appendChild(itemName);
 
-	var itemPrice = document.createElement("td");
+	var itemPrice = document.createElement("th");
 	itemPrice.textContent = "item Price";
 	tr.appendChild(itemPrice);
 
-	var itemURL = document.createElement("td");
+	var itemURL = document.createElement("th");
 	itemURL.textContent = "item Picture";
 	tr.appendChild(itemURL);
 
-	var itemDescription = document.createElement("td");
+	var itemDescription = document.createElement("th");
 	itemDescription.textContent = "item Description";
 	tr.appendChild(itemDescription);
 

@@ -24,6 +24,9 @@ function login()
 		data: { username: username, password: password},
 		success: function(response) {
 			$('#loginResponse').text(response);
+			if(response == "You are now logged in"){
+				update_basket();
+			}
 		}
 	});
 

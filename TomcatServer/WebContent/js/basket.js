@@ -41,6 +41,7 @@ function empty_basket() {
 			total = 0;
 			basket = [];
 			item_count = 0;
+			basket_update();
 		}
 	});
 
