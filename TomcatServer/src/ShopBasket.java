@@ -46,7 +46,7 @@ public class ShopBasket {
 	public String updateBasket(@FormParam("itemList") String itemList) {
 
 		// Correct to some condition that checks login!
-		if (false) {
+		if (session.getAttribute("id") == null || ((String) session.getAttribute("id")).equals("")) {
 
 			return "Not logged in!";
 
@@ -64,10 +64,10 @@ public class ShopBasket {
 			String amount = (String) o.get("amount");
 
 			// TODO: Please correct med!!!!!
-			// String customerID = (String) session.getAttribute("id");
+			String customerID = (String) session.getAttribute("id");
 
 			// Temp ID until connection to login is established
-			String customerID = "69";
+			//String customerID = "69";
 
 			Document buydoc = XMLHandler.buyItem(itemID, amount, customerID);
 
