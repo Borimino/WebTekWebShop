@@ -61,4 +61,5 @@ function isLoggedIn()
 $(document).ready(function() {
 	$('#login').click(login);
 	$('#create').click(create);
+	isLoggedIn();
 });
