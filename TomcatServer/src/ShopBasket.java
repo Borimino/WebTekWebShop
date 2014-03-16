@@ -38,9 +38,7 @@ public class ShopBasket {
 		session = sessionrequest.getSession();
 	}
 
-	/*
-	 * IKKE TESTET!!!!
-	 */
+
 	@POST
 	@Path("update")
 	public String updateBasket(@FormParam("itemList") String itemList) {

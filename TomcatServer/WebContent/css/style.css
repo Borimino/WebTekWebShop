@@ -7,146 +7,161 @@
 *								v.0.2								*
 ********************************************************************/
 /*Genenral setup*/
-body{
-	background-color: #EBEBEB; 
+body {
+	background-color: #EBEBEB;
 	font-family: 'Frijole', cursive;
 }
 
-#wrapper{
-
+#wrapper {
 	background-color: #ffffff;
-	width: 100%; 
-	padding: 20px; 
+	width: 100%;
+	padding: 20px;
 	overflow: hidden;
-	
 }
 
-#uberwrapper{
+#uberwrapper {
 	box-shadow: 10px 10px 80px 5px #A6A6A6;
 	width: 1260px;
 	margin-right: auto;
 	margin-left: auto;
 }
 
+a {
+	color: #94B0FF;
+	text-decoration: none;
+}
 
-a{color: #94B0FF; text-decoration: none;}
+a:hover {
+	color: #0546FA;
+	text-decoration: underline;
+}
 
-a:hover{color: #0546FA; text-decoration: underline;}
-
-#content img{
-	float: left; 
+#content img {
+	float: left;
 	padding: 10px
 }
 
-
 /*Menu*/
-
-#nav{
-	list-style-type: none; 
-	text-align: center; 
-	font-size: 2em; 
+#nav {
+	list-style-type: none;
+	text-align: center;
+	font-size: 2em;
 	font-family: Helvetica, Arial, Verdana;
-
 }
 
-#content{
-
-	clear:both;
+#content {
+	clear: both;
 	margin-top: 100px;
 	width: 1182px;
 	margin-right: auto;
 	margin-left: auto;
 	overflow: hidden
-
 }
 
-#nav li{display: inline; margin: 0; float: left;}
-
-
-
-#nav a{
-	display: inline-block; 
-	padding-left: 5px;
-	padding-right: 5px; 
-	background: url(../images/menu-bg-big.png) top left repeat-x;
-	height: 50px;	
+#nav li {
+	display: inline;
 	margin: 0;
-	padding:0 25px 0 25px; 
+	float: left;
 }
 
-a.last{
+#nav a {
+	display: inline-block;
+	padding-left: 5px;
+	padding-right: 5px;
+	background: url(../images/menu-bg-big.png) top left repeat-x;
+	height: 50px;
+	margin: 0;
+	padding: 0 25px 0 25px;
+}
+
+a.last {
 	border-radius: 0px 10px 10px 0px;
 }
-a.first{
+
+a.first {
 	border-radius: 10px 0px 0px 10px;
 }
 
-
-
-#nav a:hover{
+#nav a:hover {
 	background: url(../images/menu-bg-big.png) bottom left repeat-x;
 	text-decoration: none;
-	color: pink	;
+	color: pink;
 }
 
-#nav ul{
+#nav ul {
+	
 }
 
-
-#banner{
-	width:1182px;
+#banner {
+	width: 1182px;
 	margin-right: auto;
 	margin-left: auto;
 }
 
-
-#footer{
+#footer {
 	background-color: #BDBDBD;
 	width: 100%;
 	text-align: center;
 	padding: 20px;
 }
 
-.strangetext{
-
+.strangetext {
 	color: red;
 	font-weight: bolder;
-
-
 }
 
 /* Product table Table*/
+tr img {
+	width: 150px;
+	display:;
+	margin: 0 auto;
+}
 
-tr img{width: 150px; display: ; margin:0 auto;}
+table {
+	margin: 0 auto
+}
 
-table{margin: 0 auto}
-
-td{
+td {
 	padding-left: 10px;
 	padding-right: 10px;
-	text-align:center;
+	text-align: center;
 	vertical-align: middle;
 	border-bottom: dotted #D6D6D6;
 }
 
-
-.producttable{
-	background: radial-gradient(#D9D9D9,#ffffff);
+.producttable {
+	background: radial-gradient(#D9D9D9, #ffffff);
 	border-style: solid;
 	border-width: 1px;
 	border-color: #9C9C9C;
-
-
 }
 
-.sminkepic{
+.sminkepic {
 	width: 50px;
-
 }
 
-#basket{	
-	
+#basket {
 	background-color: #d0d0d0;
-	
 }
 
+/*************************** RATING *******************************/
+
+
+
+.star {
+	overflow: hidden;
+	background: url(../images/stars.png) top right repeat-x;
+	height: 24px;
+	width: 26px;
+	display: inline-block;
+}
+
+
+.star:hover {
+	background-position: left;
+}
+
+.ratingblock{
+	width:200px !important;
+	
+}

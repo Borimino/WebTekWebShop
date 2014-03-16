@@ -39,14 +39,32 @@ function addItemsToTable(items) {
 	itemDescription.textContent = "item Description";
 	tr.appendChild(itemDescription);
 
+	
+	var buyItem = document.createElement("th");
+	buyItem.textContent = "Buy Item";
+	tr.appendChild(buyItem);
+
+	var itemRating = document.createElement("th");
+	itemRating.textContent = "Rate item";
+	tr.appendChild(itemRating);
+
+	
+	
+
 
 	tableBody.appendChild(tr);
-
+	
+	//Used to keep track od how many rows is actually printet
+	
+	var blockcount = 0;
+	
 	for (var i = 0; i < items.length; i++) {
 		var item = items[i];
 
 		if (item.itemStock > 0) {
-
+			
+			blockcount ++;
+			
 			var tr = document.createElement("tr");
 
 			var itemName = document.createElement("td");
@@ -66,8 +84,7 @@ function addItemsToTable(items) {
 			var itemDescription = document.createElement("td");
 			itemDescription.innerHTML = item.itemDescription;
 			tr.appendChild(itemDescription);
-			console.log(item.itemDescription);
-
+			
 
 			var button = document.createElement("td");
 			var itemButton = document.createElement("button");
@@ -75,10 +92,26 @@ function addItemsToTable(items) {
 			itemButton.innerHTML = "Buy";
 			button.appendChild(itemButton);
 			itemButton.setAttribute('onclick', "add_to_basket('" + item.itemID + "','" + "1" + "','" + item.itemPrice + "','" + item.itemName + "')");
-			//itemButton.onClick = "add_to_basket('" + itemID + "','" + itemNumber + "','" + itemPrice + "','" + itemName + "');";
 			tr.appendChild(button);
+			
+			var itemRating = document.createElement("td");
+
+			var ratingBlock =
+			"<div class='ratingblock'>" +
+			"<span onclick='rate(" + item.itemID + ", 1)' class='star rate1 " + "block" + blockcount + "'></span>" +
+			"<span onclick='rate(" + item.itemID + ", 2)' class='star rate2 " + "block" + blockcount + "'></span>" +
+			"<span onclick='rate(" + item.itemID + ", 3)' class='star rate3 " + "block" + blockcount + "'></span>" +
+			"<span onclick='rate(" + item.itemID + ", 4)' class='star rate4 " + "block" + blockcount + "'></span>" +
+			"<span onclick='rate(" + item.itemID + ", 5)' class='star rate5 " + "block" + blockcount + "'></span>" +
+			"</div>";
+			
+			itemRating.innerHTML =	ratingBlock; 
+			tr.appendChild(itemRating);
+			
+			
 
 			tableBody.appendChild(tr);
+			addStarfunctionality();
 		}
 	}
 
