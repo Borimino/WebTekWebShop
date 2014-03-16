@@ -103,7 +103,10 @@ function addItemsToTable(items) {
 			"<span onclick='rate(" + item.itemID + ", 3)' class='star rate3 " + "block" + blockcount + "'></span>" +
 			"<span onclick='rate(" + item.itemID + ", 4)' class='star rate4 " + "block" + blockcount + "'></span>" +
 			"<span onclick='rate(" + item.itemID + ", 5)' class='star rate5 " + "block" + blockcount + "'></span>" +
-			"</div>";
+			"</div>" +
+			"<div id='rating" + item.itemID + "'></div>";
+			
+			setavgrating(item.itemID);
 			
 			itemRating.innerHTML =	ratingBlock; 
 			tr.appendChild(itemRating);

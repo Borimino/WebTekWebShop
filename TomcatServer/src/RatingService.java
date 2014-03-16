@@ -27,7 +27,6 @@ public class RatingService {
 		// Creates new map to store ratings if none have been made yet
 		if (contextList == null) {
 			ratingMap = new HashMap<>();
-			System.out.println("RESTTART");
 		} else {
 			ratingMap = contextList;
 		}
@@ -97,10 +96,15 @@ public class RatingService {
 
 		Integer[] itemRatings = ratingMap.get(id);
 
+		// Adds empty array if none ratings of the item has been made yet
+		if (itemRatings == null) {
+			itemRatings = makeEmptyRatingArray();
+		}
+
 		DecimalFormat formatter = new DecimalFormat("#.##");
 
 		return "" + formatter.format(calculateRatingaverage(itemRatings));
-				
+
 	}
 
 }

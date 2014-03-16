@@ -1,6 +1,5 @@
 //Rate function
 function rate(id, rate) {
-	alert(id);
 
 	$.ajax({
 		type : "GET",
@@ -16,6 +15,30 @@ function rate(id, rate) {
 		}
 	});
 
+}
+
+function setavgrating(id){
+	
+
+	
+	$.ajax({
+		type : "GET",
+		url : "rest/rating/getavgrate",
+		data : {
+			id : id
+		},
+		success : function(answer) {
+
+			console.log(answer);
+			$("#rating" + id).text("Average rating" + answer);
+
+		}
+	});
+
+	
+	
+	
+	
 }
 
 
