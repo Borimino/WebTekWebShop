@@ -10,8 +10,8 @@ function rate(id, rate) {
 		},
 		success : function(answer) {
 
-			alert("Gennemsnit " + answer);
-
+			alert("Thank you for you rating");
+			setavgrating(id);
 		}
 	});
 
