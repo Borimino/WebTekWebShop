@@ -72,6 +72,11 @@ public class RatingService {
 
 		}
 
+		if(numberOfRatings == 0)
+		{
+			return 0;
+		}
+
 		return (double) valueOfAllRatings / (double) numberOfRatings;
 
 	}
