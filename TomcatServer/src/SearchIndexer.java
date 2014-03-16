@@ -2,6 +2,8 @@ import java.util.*;
 
 import javax.ws.rs.*;
 
+import org.json.*;
+
 @Path("indexer")
 public class SearchIndexer 
 {
@@ -15,7 +17,7 @@ public class SearchIndexer
 		des = des.replaceAll("\\!", "");
 		des = des.replaceAll("\\<", " \\<");
 		des = des.replaceAll("\\>", "\\> ");
-		des = des.replaceAll("\\<.*\\>", "");
+		des = des.replaceAll("\\<.*?\\>", "");
 		ArrayList<String> words = new ArrayList<String>(Arrays.asList(des.split(" ")));
 
 		for(int i = 0; i < words.size(); i++)
@@ -75,10 +77,10 @@ public class SearchIndexer
 
 		HashMap<String, HashMap<Integer, Integer>> res = makeII(indexes, itemIDs);
 
-		for(String k : res.keySet())
-		{
-			System.out.println(k + "=" + res.get(k));
-		}
+		//for(String k : res.keySet())
+		//{
+			//System.out.println(k + "=" + res.get(k));
+		//}
 
 		return res;
 	}
@@ -92,5 +94,111 @@ public class SearchIndexer
 		inverseIndex = rebuildII(items);
 
 		return "Index has been rebuild";
+	}
+
+	public ArrayList<Integer> match(String query)
+	{
+		if(inverseIndex == null)
+		{
+			rebuildII();
+		}
+
+		ArrayList<Integer> res = new ArrayList<Integer>();
+
+		HashMap<Integer, Integer> allMatches = new HashMap<Integer, Integer>();
+
+		ArrayList<String> words = new ArrayList<String>(Arrays.asList(query.split(" ")));
+		
+		for(int i = 0; i < words.size(); i++)
+		{
+			words.set(i, words.get(i).trim());
+		}
+
+		for(String s : words)
+		{
+			if(inverseIndex.containsKey(s))
+			{
+				for(Map.Entry<String, HashMap<Integer, Integer>> hm : inverseIndex.entrySet())
+				{
+					if(!hm.getKey().equals(s))
+					{
+						continue;
+					}
+					for(Integer itemID : hm.getValue().keySet())
+					{
+						if(allMatches.containsKey(itemID))
+						{
+							allMatches.put(itemID, allMatches.get(itemID)+1);
+						} else {
+							allMatches.put(itemID, 1);
+						}
+					}
+				}
+			}
+		}
+
+		for(Integer i : allMatches.keySet())
+		{
+			if(words.size() == 1)
+			{
+				res.add(i);
+			}
+			if(allMatches.get(i) > 1)
+			{
+				res.add(i);
+			}
+		}
+
+		return res;
+	}
+
+	@GET
+	@Path("search")
+	public String search(@QueryParam("query") String query)
+	{
+		String res = "";
+
+		for(Integer i : match(query))
+		{
+			res += i + "\n";
+		}
+
+		return res;
+	}
+
+	@GET
+	@Path("search2")
+	public String search2(@QueryParam("query") String query)
+	{
+		JSONArray res = new JSONArray();
+
+		LinkedList<Item> items = (new ShopService()).createList();
+
+		if(query == null)
+		{
+			query = "";
+		}
+
+		ArrayList<Integer> matches = match(query);
+		//System.out.println(matches);
+
+		for(Item i : items)
+		{
+			if(matches.contains(i.getId()))
+			{
+				JSONObject jsonItemObjects = new JSONObject();
+
+				jsonItemObjects.put("itemName", i.getName());
+				jsonItemObjects.put("itemPrice", i.getPrice());
+				jsonItemObjects.put("itemStock", i.getStock());
+				jsonItemObjects.put("itemURL", i.getUrl());
+				jsonItemObjects.put("itemDescription", i.getCleanHTMLDescription());
+				jsonItemObjects.put("itemID", i.getId());
+
+				res.put(jsonItemObjects);
+			}
+		}
+
+		return res.toString();
 	}
 }
