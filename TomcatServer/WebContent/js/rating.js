@@ -11,7 +11,7 @@ function rate(id, rate) {
 		success : function(answer) {
 
 			alert("Thank you for you rating");
-			setavgrating(id);
+			$("#rating" + id).text("Average rating: " + answer);
 		}
 	});
 
@@ -30,7 +30,7 @@ function setavgrating(id){
 		success : function(answer) {
 
 			console.log(answer);
-			$("#rating" + id).text("Average rating" + answer);
+			$("#rating" + id).text("Average rating: " + answer);
 
 		}
 	});
