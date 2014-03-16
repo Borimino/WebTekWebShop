@@ -26,7 +26,7 @@ public class RatingService {
 
 		// Creates new map to store ratings if none have been made yet
 		if (contextList == null) {
-			ratingMap = new HashMap<>();
+			ratingMap = new HashMap<String, Integer[]>();
 		} else {
 			ratingMap = contextList;
 		}
