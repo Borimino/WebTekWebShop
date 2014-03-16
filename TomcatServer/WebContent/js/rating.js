@@ -1,5 +1,4 @@
-
-//Rate funvtion
+//Rate function
 function rate(id, rate) {
 	alert(id);
 
@@ -19,42 +18,53 @@ function rate(id, rate) {
 
 }
 
+
+
 /** ********Star functionality:******* */
 
-//Attaches hover event to each star
-$(document).ready(function() {
+function addStarfunctionality() {
 
-	$(".star").each(function(i) {
+	$(".ratingblock").each(function(i) {
 
-		$(this).hover(function() {
+		$(this).children(".star").mouseenter(function() {
 
-			star_hover(i + 1);
+			star_hover($(this).index() + 1, i + 1);
+
 		});
+
+		$(this).children(".star").mouseleave(function() {
+
+			clear_star_hover(i+1);
+			
+		});
+
 	});
 
-});
-
+}
 // Makes the stars after the current one change BG
-function star_hover(num) {
+function star_hover(num, blocknumber) {
 
-	for(var i = 1; i <= 5; i++){
-		
-		if(i <= num){
-		
-		$('.rate'+(i)).css("background-position" , "left");
-		console.log('FARVET: ' + '.rate'+(i));
-		
-		} else{
-			
-			$('.rate'+(i)).css("background-position" , "right");
-			console.log('IKKE FARVET:' + '.rate'+(i));
-				
-			
+
+	for (var i = 1; i <= 5; i++) {
+
+		if (i <= num) {
+
+			$('.block' + blocknumber + '.rate' + (i)).css(
+					"background-position", "left");
+
+		} else {
+
+			$('.block' + blocknumber + '.rate' + (i)).css(
+					"background-position", "right");
+
 		}
-		
-		
 	}
-	
-	
+}
 
+
+
+function clear_star_hover(blocknumber){
+	
+	$('.block' + blocknumber).css("background-position", "right");
+	
 }
