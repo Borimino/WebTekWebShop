@@ -182,8 +182,8 @@ public class ChatService {
 	 * Checked by the windows to add messages.
 	 */
 	@POST
-	@Path("emplmes")
-	private String sendMessagesToEmployee(@FormParam("id") String costumerID) {
+	@Path("employeemessage")
+	public String sendMessagesToEmployee(@FormParam("id") String costumerID) {
 
 		if(conversationMap.containsKey(costumerID)){
 			
@@ -192,7 +192,6 @@ public class ChatService {
 		}
 		
 		return "";
-
 	}
 
 	/**

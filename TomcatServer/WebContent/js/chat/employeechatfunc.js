@@ -4,7 +4,7 @@
 
 var id;
 
-setTimeout(initID, 1500);
+setTimeout(initID, 500);
 
 function initID(){
 
@@ -19,7 +19,7 @@ function checkFormessages(){
 	console.log("Checking for new messages");
 	$.ajax({
 		type : "POST",
-		url : "../rest/chat/emplmes",
+		url : "../rest/chat/employeemessage",
 		data : {
 			id : id
 		},
