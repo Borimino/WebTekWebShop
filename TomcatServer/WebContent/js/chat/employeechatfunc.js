@@ -51,6 +51,7 @@ function senddata() {
 		url : "../rest/chat/employeesend",
 		data : {
 			message : message
+			custID : id
 		},
 		success : function(answer) {
 

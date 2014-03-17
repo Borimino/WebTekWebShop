@@ -30,6 +30,7 @@ public class ChatService {
 	private ServletContext context;
 	private Timer logOffTimer;
 	private HashMap<String, LinkedList<String>> conversationMap;
+	private HashMap<String, LinkedList<String>> conversationBackMap;
 	private LinkedList<String> windowsToAdd;
 
 	public ChatService(@Context HttpServletRequest sessionrequest) {
@@ -107,6 +108,47 @@ public class ChatService {
 		
 		//saves conversationmap in context
 		context.setAttribute("conSet", conversationMap);
+		
+		return "SUCESS!";
+	}
+
+	/**
+	 * 
+	 * Responsible for sending messages from the employee
+	 */
+	@POST
+	@Path("employeesend")
+	public String sendMessageFromEmployee(@FormParam("message") String message, @FormParam("custID") String id) {
+		
+		System.out.println("Employee sent message: " + message);
+
+		//String id = getCostumerID();
+		
+		System.out.println("CUSTOMER ID: " + id);
+		
+		//Checks if a conversation is already started with the costumer
+		if(conversationBackMap.containsKey(id)){
+			
+			//appends message to end of linkedlist of conversations
+			conversationBackMap.get(id).add(message);
+			System.out.println("Con already started");
+			
+		} else {
+			
+			//Creates new linkedlist with convertsation and adds the new message
+			LinkedList<String> tempList = new LinkedList<String>();
+			tempList.add(message);
+			conversationBackMap.put(id, tempList);
+			windowsToAdd.add(id);
+			
+			context.setAttribute("windowList", windowsToAdd);
+			
+			System.out.println("Window sent to employee");
+			
+		}
+		
+		//saves conversationmap in context
+		context.setAttribute("conBackSet", conversationBackMap);
 		
 		return "SUCESS!";
 	}
@@ -200,6 +242,7 @@ public class ChatService {
 
 				//Resets all conversations
 				context.setAttribute("conSet", null);
+				context.setAttribute("conBackSet", null);
 				
 				
 				// Saves employee state to context
@@ -267,6 +310,19 @@ public class ChatService {
 		
 	}
 	
+	private void getConversationBackMapFromContext(){
+		
+
+		//Checks weather the conversationmap can be loaded if no creates a new map
+		HashMap<String, LinkedList<String>> tempset = (HashMap<String, LinkedList<String>>) context.getAttribute("conBackSet");
+		if(tempset == null){
+			conversationBackMap = new HashMap<String, LinkedList<String>>();
+		} else {
+			conversationBackMap = tempset;
+		}
+		
+	}
+
 	private void getWindowlistFromContext(){
 		
 		//Checks if the windowlist can be loaded if nots creates a empty list
