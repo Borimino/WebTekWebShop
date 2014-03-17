@@ -185,6 +185,8 @@ public class ChatService {
 	@Path("employeemessage")
 	public String sendMessagesToEmployee(@FormParam("id") String costumerID) {
 
+		getConversationMapFromContext();
+		
 		if(conversationMap.containsKey(costumerID)){
 			
 			return conversationMap.get(costumerID).pop();
