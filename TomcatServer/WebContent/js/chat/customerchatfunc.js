@@ -22,6 +22,7 @@ function senddata() {
 				
 			} else {
 				
+				alert("answer");
 				
 			}
 
