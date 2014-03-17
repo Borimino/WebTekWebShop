@@ -48,6 +48,9 @@ public class ChatService {
 		}
 		
 		getConversationMapFromContext();
+		getConversationBackMapFromContext();
+
+		//System.out.println("Got maps from context");
 		
 		getWindowlistFromContext();
 		
@@ -119,7 +122,7 @@ public class ChatService {
 	@POST
 	@Path("employeesend")
 	public String sendMessageFromEmployee(@FormParam("message") String message, @FormParam("custID") String id) {
-		
+
 		System.out.println("Employee sent message: " + message);
 
 		//String id = getCostumerID();
@@ -139,9 +142,9 @@ public class ChatService {
 			LinkedList<String> tempList = new LinkedList<String>();
 			tempList.add(message);
 			conversationBackMap.put(id, tempList);
-			windowsToAdd.add(id);
+			//windowsToAdd.add(id);
 			
-			context.setAttribute("windowList", windowsToAdd);
+			//context.setAttribute("windowList", windowsToAdd);
 			
 			System.out.println("Window sent to employee");
 			

@@ -4,7 +4,7 @@
 
 var id;
 
-setTimeout(initID(), 1500);
+setTimeout(initID, 1500);
 
 function initID(){
 
@@ -21,11 +21,13 @@ function senddata() {
 	// Gets the message from the textarea
 	var message = $("#messagearea").val();
 	
+	id = $("#customerid").text();
+
 	$.ajax({
 		type : "POST",
-		url : "rest/chat/employeesend",
+		url : "../rest/chat/employeesend",
 		data : {
-			message : message
+			message : message,
 			custID : id
 		},
 		success : function(answer) {
