@@ -298,10 +298,10 @@ public class ChatService {
 	
 	private boolean hascostumerbought(){
 		
-		HttpURLConnection con = cloudHandler.connect(false, "/listCustomerSales?customerID=ID");
+		HttpURLConnection con = cloudHandler.connect(false, "/listCustomerSales?customerID=" + getCostumerID());
 		Document response = cloudHandler.getResponse(false, con, null, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
 
-		if(response.getRootElement().getChildren().size() == 0)
+		if(response == null || response.getRootElement().getChildren().size() == 0)
 		{
 			return false;
 		}
