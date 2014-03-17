@@ -84,6 +84,7 @@ public class CloudHandler {
 			return itemID;
 		} catch (IOException ioe) {
 			System.out.println("FORBINDELSESOPRETTELSESFEJL!!!!!!!");
+			System.out.println(Thread.currentThread().getStackTrace()[2]);
 			return null;
 		} catch (JDOMException jdome) {
 			return null;

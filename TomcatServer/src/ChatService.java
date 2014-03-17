@@ -380,18 +380,24 @@ public class ChatService {
 
 	private boolean isCostumerLoggedIn() {
 
-		if (session.getAttribute("id") == null
-				|| ((String) session.getAttribute("id")).equals("")) {
+		if (session.getAttribute("id") == null || ( session.getAttribute("id")).equals("")) {
 
 			return false;
 
 		}
+
+		System.out.println(session.getAttribute("id"));
 
 		return true;
 
 	}
 	
 	private boolean hascostumerbought(){
+
+		if(!isCostumerLoggedIn())
+		{
+			return false;
+		}
 		
 		HttpURLConnection con = cloudHandler.connect(false, "/listCustomerSales?customerID=" + getCostumerID());
 		Document response = cloudHandler.getResponse(false, con, null, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());

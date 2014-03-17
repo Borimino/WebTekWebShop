@@ -25,8 +25,10 @@ function login()
 		success: function(response) {
 			$('#loginResponse').text(response);
 			if(response == "You are now logged in"){
+				chatlink();
 				update_basket();
 			}
+			chatlink();
 		}
 	});
 
