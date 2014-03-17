@@ -16,6 +16,8 @@ function initID(){
 
 function checkFormessages(){
 	
+	id = $("#customerid").text();
+
 	console.log("Checking for new messages");
 	$.ajax({
 		type : "POST",

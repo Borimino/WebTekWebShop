@@ -185,11 +185,40 @@ public class ChatService {
 	@Path("employeemessage")
 	public String sendMessagesToEmployee(@FormParam("id") String costumerID) {
 
-		getConversationMapFromContext();
-		
-		if(conversationMap.containsKey(costumerID)){
+		System.out.println(costumerID);
+		if(conversationMap.containsKey(costumerID) && conversationMap.get(costumerID).size() > 0){
 			
-			return conversationMap.get(costumerID).pop();
+			String tmp = conversationMap.get(costumerID).pop();
+			context.setAttribute("conSet", conversationMap);
+			return tmp;
+			
+		}
+		
+		return "";
+	}
+
+	/**
+	 * 
+	 * Checked by the windows to add messages.
+	 */
+	@POST
+	@Path("custMes")
+	public String sendMessagesToCostumer() {
+
+		if (!isCostumerLoggedIn()) {
+
+			return "You need to be logged in to chat";
+
+		}
+
+		String costumerID = getCostumerID();
+
+		System.out.println(costumerID);
+		if(conversationBackMap.containsKey(costumerID) && conversationBackMap.get(costumerID).size() > 0){
+			
+			String tmp = conversationBackMap.get(costumerID).pop();
+			context.setAttribute("conBackSet", conversationBackMap);
+			return tmp;
 			
 		}
 		
