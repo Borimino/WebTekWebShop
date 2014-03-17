@@ -1,17 +1,18 @@
 #wrapper {
-	width: 500px;
+	width: 420px;
 	padding: 5px;
 }
 
 .messagewindow {
 	width: 100%;
 	margin:0;
-	height: 450px;
-	background-color: #90C;
+	height: 410px;
+	overflow-y: scroll;
+	border-style: dashed;
+	border-width: 2px;
+	border-color: #fefefe;
 }
 
 #messagearea{
-	
-	
-	width: 100%;
+	width: 410px;
 }

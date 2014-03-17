@@ -27,10 +27,10 @@ function checkFormessages(){
 		},
 		success : function(answer) {
 			
-			alert(answer);
 			if(answer != ""){
 				
 				$(".messagewindow").append("<b style='color:red'>Costumer:</b><span> "+ answer + "</span><br>");
+				$("#messagearea").val("");
 
 				
 			}
@@ -63,10 +63,12 @@ function senddata() {
 			
 			if (answer = "SUCESS!") {
 				
-				$(".messagewindow").append("<b style='color:red'>You:</b><span> "+ message + "</span>");
+				$(".messagewindow").append("<b style='color:red'>You:</b><span> "+ message + "</span><br>");
 				
 			} else {
 				
+				alert("answer");
+
 				
 			}
 
