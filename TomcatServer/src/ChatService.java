@@ -16,7 +16,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
-import org.jdom2.Namespace;
+import java.net.*;
+
+import org.jdom2.*;
 
 @Path("chat")
 public class ChatService {
@@ -296,8 +298,15 @@ public class ChatService {
 	
 	private boolean hascostumerbought(){
 		
-		cloudHandler.connect("/listCustomerSales?customerID=ID")
+		HttpURLConnection con = cloudHandler.connect(false, "/listCustomerSales?customerID=ID");
+		Document response = cloudHandler.getResponse(false, con, null, XMLHandler.getOutputter(), XMLHandler.getSAXBuilder());
+
+		if(response.getRootElement().getChildren().size() == 0)
+		{
+			return false;
+		}
 		
+		return true;
 		
 	}
 
