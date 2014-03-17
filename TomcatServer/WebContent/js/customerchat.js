@@ -10,7 +10,6 @@ $(document).ready(function(){
 		type : "POST",
 		url : "rest/chat/checkcustomerbought",
 		data : {
-			id : id
 		},
 		success : function(status) {
 
