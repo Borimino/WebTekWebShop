@@ -43,8 +43,9 @@
 					
 					//empWindow.document.write("<p>I replaced the current window.</p>");
 					
-					empWindow.document.write("<div id='customerid' style='visibility:hidden'>" + answer + "</div>");
-				
+					setTimeout(function() {
+						empWindow.document.getElementById("wrapper").innerHTML += "<div id='customerid' style='visibility:hidden'>" + answer + "</div>";
+					}, 500);
 				}
 				
 			}
