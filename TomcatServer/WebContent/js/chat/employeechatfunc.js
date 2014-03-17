@@ -4,13 +4,38 @@
 
 var id;
 
-setTimeout(initID(), 1500);
+setTimeout(initID, 1500);
 
 function initID(){
 
 	id = $("#customerid").text();
+	setInterval(checkFormessages, 2000);
 	
-	alert(id);
+	
+} 
+
+function checkFormessages(){
+	
+	console.log("Checking for new messages");
+	$.ajax({
+		type : "POST",
+		url : "../rest/chat/emplmes",
+		data : {
+			id : id
+		},
+		success : function(answer) {
+			
+			if(answer != ""){
+				
+				$(".messagewindow").append("<b style='color:red'>Costumer:</b><span> "+ answer + "</span><br>");
+
+				
+			}
+			
+			
+		}
+	});
+	
 	
 }
 
@@ -23,7 +48,7 @@ function senddata() {
 	
 	$.ajax({
 		type : "POST",
-		url : "rest/chat/employeesend",
+		url : "../rest/chat/employeesend",
 		data : {
 			message : message
 		},

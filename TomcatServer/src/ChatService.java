@@ -134,12 +134,18 @@ public class ChatService {
 
 	/**
 	 * 
-	 * Checked by the windows to aadd messages.
+	 * Checked by the windows to add messages.
 	 */
 	@POST
-	@Path("sendtoemployee")
-	private String sendMessagesToEmployee(String costumerID) {
+	@Path("emplmes")
+	private String sendMessagesToEmployee(@FormParam("id") String costumerID) {
 
+		if(conversationMap.containsKey(costumerID)){
+			
+			return conversationMap.get(costumerID).pop();
+			
+		}
+		
 		return "";
 
 	}
@@ -229,7 +235,7 @@ public class ChatService {
 	}
 	
 	@POST
-	@Path("checkcustomerbought")
+	@Path("checkc")
 	public Boolean checkCostumerBougth(){
 		
 		return hascostumerbought();
