@@ -8,8 +8,9 @@ $(document).ready(function(){
 	
 	$.ajax({
 		type : "POST",
-		url : "rest/chat/checkcustomerlogin",
+		url : "rest/chat/checkcustomerbought",
 		data : {
+			id : id
 		},
 		success : function(status) {
 

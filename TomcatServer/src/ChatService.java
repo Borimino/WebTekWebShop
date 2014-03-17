@@ -16,11 +16,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 
+import org.jdom2.Namespace;
+
 @Path("chat")
 public class ChatService {
 
 	private boolean employeeStatus;
 	private HttpSession session;
+	private CloudHandler cloudHandler;
+	private Namespace n;
 	private ServletContext context;
 	private Timer logOffTimer;
 	private HashMap<String, LinkedList<String>> conversationMap;
@@ -31,6 +35,9 @@ public class ChatService {
 		this.session = sessionrequest.getSession();
 		this.context = session.getServletContext();
 
+		this.n = Namespace.getNamespace("http://www.cs.au.dk/dWebTek/2014");
+		cloudHandler = new CloudHandler(n);
+		
 		//Checks if a Timer can be loaded
 		Timer tempTimer = (Timer) session.getAttribute("logTimer");
 		if (tempTimer != null) {
@@ -183,6 +190,10 @@ public class ChatService {
 
 				employeeStatus = false;
 
+				//Resets all conversations
+				context.setAttribute("conSet", null);
+				
+				
 				// Saves employee state to context
 				context.setAttribute("empStatus", employeeStatus);
 				System.out.println("Employee logged of automatically");
@@ -214,6 +225,15 @@ public class ChatService {
 		return isCostumerLoggedIn();
 
 	}
+	
+	@POST
+	@Path("checkcustomerbought")
+	public Boolean checkCostumerBougth(){
+		
+		return hascostumerbought();
+		
+	}
+	
 
 	private void getEmployeeStatusFromContext() {
 
@@ -272,6 +292,13 @@ public class ChatService {
 
 		return true;
 
+	}
+	
+	private boolean hascostumerbought(){
+		
+		cloudHandler.connect("/listCustomerSales?customerID=ID")
+		
+		
 	}
 
 }
