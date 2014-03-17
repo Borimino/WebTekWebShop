@@ -25,6 +25,7 @@ function checkFormessages(){
 		},
 		success : function(answer) {
 			
+			alert("ANSWER");
 			if(answer != ""){
 				
 				$(".messagewindow").append("<b style='color:red'>Costumer:</b><span> "+ answer + "</span><br>");
