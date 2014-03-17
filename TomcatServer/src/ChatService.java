@@ -1,0 +1,277 @@
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+
+@Path("chat")
+public class ChatService {
+
+	private boolean employeeStatus;
+	private HttpSession session;
+	private ServletContext context;
+	private Timer logOffTimer;
+	private HashMap<String, LinkedList<String>> conversationMap;
+	private LinkedList<String> windowsToAdd;
+
+	public ChatService(@Context HttpServletRequest sessionrequest) {
+
+		this.session = sessionrequest.getSession();
+		this.context = session.getServletContext();
+
+		//Checks if a Timer can be loaded
+		Timer tempTimer = (Timer) session.getAttribute("logTimer");
+		if (tempTimer != null) {
+			logOffTimer = tempTimer;
+		}
+		
+		getConversationMapFromContext();
+		
+		getWindowlistFromContext();
+		
+		getEmployeeStatusFromContext();
+
+	}
+	
+
+	/**
+	 * 
+	 * Responsible for sending messages from the costumer
+	 */
+	@POST
+	@Path("customersend")
+	public String sendMessageFromCostumer(@FormParam("message") String message) {
+		
+		// Updates employee status
+		getEmployeeStatusFromContext();
+		
+		System.out.println("EMP STATUS VED SEND: " + employeeStatus);
+
+		if (!isCostumerLoggedIn()) {
+
+			return "You need to be logged in to chat";
+
+		} else if (!employeeStatus) {
+
+			return "Unfortunately there is no employee present at the moment. Please come back later";
+
+		}
+
+		System.out.println("Customer sent message: " + message);
+
+		String id = getCostumerID();
+		
+		System.out.println("CUSTOMER ID: " + id);
+		
+		//Checks if a conversation is already started with the costumer
+		if(conversationMap.containsKey(id)){
+			
+			//appends message to end of linkedlist of conversations
+			conversationMap.get(id).add(message);
+			System.out.println("Con already started");
+			
+		} else {
+			
+			//Creates new linkedlist with convertsation and adds the new message
+			LinkedList<String> tempList = new LinkedList<String>();
+			tempList.add(message);
+			conversationMap.put(id, tempList);
+			windowsToAdd.add(id);
+			
+			context.setAttribute("windowList", windowsToAdd);
+			
+			System.out.println("Window sent to employee");
+			
+		}
+		
+		//saves conversationmap in context
+		context.setAttribute("conSet", conversationMap);
+		
+		return "SUCESS!";
+	}
+
+	/**
+	 * 
+	 * The employee call this to check if new window should be added
+	 */
+	@GET
+	@Path("makewindow")
+	public String addWindowToEmployee() {
+
+		getWindowlistFromContext();
+
+		
+		if(windowsToAdd.peek() != null){
+			System.out.println("WINDOW FOUND");
+			return windowsToAdd.pop();	
+		}
+		
+		return "";
+		
+		
+	}
+
+	/**
+	 * 
+	 * Checked by the windows to aadd messages.
+	 */
+	@POST
+	@Path("sendtoemployee")
+	private String sendMessagesToEmployee(String costumerID) {
+
+		return "";
+
+	}
+
+	/**
+	 * Called in javascript loop to keep the employee logged in
+	 */
+
+	@POST
+	@Path("checkinemployee")
+	public void checkEmployeeIn() {
+		reScheduleLogOff();
+
+	}
+
+	/**
+	 * Logs of employee if it hasnt been contacted for 3 seconds
+	 */
+
+	private void reScheduleLogOff() {
+
+		System.out.println("Reschedule RAN");
+
+		if (logOffTimer != null) {
+			logOffTimer.cancel();
+
+		} else {
+			System.out.println("TIMER NOT FOUND");
+		}
+
+		logOffTimer = new Timer();
+		TimerTask t = createTimerTask();
+		logOffTimer.schedule(t, 5000);
+
+		// Saves timer to the session
+		session.setAttribute("logTimer", logOffTimer);
+
+	}
+
+	/**
+	 * 
+	 * @return Task that logoff empleoyee
+	 */
+	private TimerTask createTimerTask() {
+
+		return new TimerTask() {
+
+			@Override
+			public void run() {
+
+				employeeStatus = false;
+
+				// Saves employee state to context
+				context.setAttribute("empStatus", employeeStatus);
+				System.out.println("Employee logged of automatically");
+
+			}
+		};
+
+	}
+
+
+	@POST
+	@Path("setonline")
+	public void setEmployeeStatus(@FormParam("status") boolean employeeStatus) {
+
+		this.employeeStatus = employeeStatus;
+
+		context.setAttribute("empStatus", employeeStatus);
+
+		reScheduleLogOff();
+
+		System.out.println("STATUS ved EMP LOGIN: " + employeeStatus);
+
+	}
+
+	@POST
+	@Path("checkcustomerlogin")
+	public Boolean checkCustomerLogin() {
+
+		return isCostumerLoggedIn();
+
+	}
+
+	private void getEmployeeStatusFromContext() {
+
+		// Get status of employee
+		Boolean tempstatus = (Boolean) context.getAttribute("empStatus");
+		if (tempstatus == null) {
+			employeeStatus = false;
+		} else {
+			employeeStatus = tempstatus;
+		}
+	}
+
+	private void getConversationMapFromContext(){
+		
+
+		//Checks weather the conversationmap can be loaded if no creates a new map
+		HashMap<String, LinkedList<String>> tempset = (HashMap<String, LinkedList<String>>) context.getAttribute("conSet");
+		if(tempset == null){
+			conversationMap = new HashMap<String, LinkedList<String>>();
+			} else {
+				conversationMap = tempset;
+			}
+		
+	}
+	
+	private void getWindowlistFromContext(){
+		
+		//Checks if the windowlist can be loaded if nots creates a empty list
+				LinkedList<String> tempList = (LinkedList<String>) context.getAttribute("windowList");
+				if(tempList == null){
+					windowsToAdd = new LinkedList<String>();
+				} else {
+					windowsToAdd = tempList;
+					
+				}
+	}
+	
+	private String getCostumerID() {
+
+		if (isCostumerLoggedIn()) {
+			return (String) session.getAttribute("id");
+		}
+
+		return null;
+
+	}
+
+	private boolean isCostumerLoggedIn() {
+
+		if (session.getAttribute("id") == null
+				|| ((String) session.getAttribute("id")).equals("")) {
+
+			return false;
+
+		}
+
+		return true;
+
+	}
+
+}
